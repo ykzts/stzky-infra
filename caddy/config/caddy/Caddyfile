@@ -18,15 +18,28 @@
 	}
 }
 
-stzky.com, www.stzky.com {
-  import secure-headers
+stzky.com, *.stzky.com {
+	tls {
+		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+	}
 
-  encode zstd gzip
+	@apex host stzky.com
+	handle @apex {
+		import secure-headers
 
-  @www host www.stzky.com
-  redir @www https://stzky.com{uri} permanent
+		encode zstd gzip
+		reverse_proxy homepage:3000
+	}
 
-  reverse_proxy homepage:3000
+	@www host www.stzky.com
+	handle @www {
+	import secure-headers
+
+	encode zstd gzip
+	redir https://stzky.com{uri} permanent
+	}
+
+	abort
 }
 
 console.stzky.com {
@@ -91,7 +104,6 @@ mcp.stzky.com {
 
 epub.ykzts.com {
 	encode zstd gzip
-
 	reverse_proxy epub-web:8085 {
 		transport http {
 			versions h2c 2
