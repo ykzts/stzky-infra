@@ -31,75 +31,94 @@ stzky.com, *.stzky.com {
 		reverse_proxy homepage:3000
 	}
 
+  @console host console.stzky.com
+  handle {
+    import secure-headers
+
+    encode zstd gzip
+    reverse_proxy host.docker.internal:9000
+  }
+
+  @graph host graph.stzky.com
+  handle {
+    import secure-headers
+
+    encode zstd gzip
+    reverse_proxy grafana:3000
+  }
+
+  @photos host photos.stzky.com
+  handle {
+    import secure-headers
+
+    encode zstd gzip
+    header {
+      Content-Security-Policy "base-uri 'self'; connect-src 'self' https://pay.futo.org https://static.immich.cloud https://tiles.immich.cloud; default-src 'none'; font-src 'self'; frame-ancestors 'none'; img-src 'self' data: blob:; manifest-src 'self'; media-src 'self'; sandbox allow-downloads allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.gstatic.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:"
+      Permissions-Policy "camera=(), display-capture=(), geolocation=(self), microphone=()"
+      -X-Powered-By
+    }
+    reverse_proxy immich-server:2283
+  }
+
+  @prometheus host prometheus.stzky.com
+  handle @prometheus {
+    import secure-headers
+
+    basic_auth {
+      {$PROMETHEUS_AUTH_USERNAME} {$PROMETHEUS_HASHED_PASSWORD}
+    }
+    encode zstd gzip
+    reverse_proxy prometheus:9090
+  }
+
+  @mcp host mcp.stzky.com
+  handle @mcp {
+    import secure-headers
+
+    @unauthorized {
+      not header_regexp auth Authorization `^(?i:Bearer)\s+{$MCP_ACCESS_TOKEN}$`
+    }
+
+    handle @unauthorized {
+      header Content-Type application/json
+      respond `{"error": "Unauthorized", "message": "Valid token required"}` 401
+    }
+
+    reverse_proxy gateway:8811
+  }
+
+  @uptime host uptime.stzky.com
+  handle @uptime {
+    import secure-headers
+
+    encode zstd gzip
+    reverse_proxy uptime-kuma:3001
+  }
+
+  @status host status.stzky.com
+  handle @status {
+    import secure-headers
+
+    encode zstd gzip
+    reverse_proxy uptime-kuma:3001
+  }
+
 	@www host www.stzky.com
 	handle @www {
-	import secure-headers
+    import secure-headers
 
-	encode zstd gzip
-	redir https://stzky.com{uri} permanent
+    encode zstd gzip
+    redir https://stzky.com{uri} permanent
 	}
 
 	abort
 }
 
-console.stzky.com {
-	import secure-headers
-
-	encode zstd gzip
-	reverse_proxy host.docker.internal:9000
-}
-
-graph.stzky.com {
-	import secure-headers
-
-	encode zstd gzip
-	header {
-	}
-	reverse_proxy grafana:3000
-}
-
-photos.stzky.com {
-	import secure-headers
-
-	encode zstd gzip
-	header {
-		Content-Security-Policy "base-uri 'self'; connect-src 'self' https://pay.futo.org https://static.immich.cloud https://tiles.immich.cloud; default-src 'none'; font-src 'self'; frame-ancestors 'none'; img-src 'self' data: blob:; manifest-src 'self'; media-src 'self'; sandbox allow-downloads allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.gstatic.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:"
-		Permissions-Policy "camera=(), display-capture=(), geolocation=(self), microphone=()"
-		-X-Powered-By
-	}
-	reverse_proxy immich-server:2283
-}
-
-prometheus.stzky.com {
-	import secure-headers
-
-	basic_auth {
-		{$PROMETHEUS_AUTH_USERNAME} {$PROMETHEUS_HASHED_PASSWORD}
-	}
-	encode zstd gzip
-	reverse_proxy prometheus:9090
-}
-
-uptime.stzky.com, status.stzky.com, status.ykzts.com, status.ykzts.technology {
+status.ykzts.com, status.ykzts.technology {
 	import secure-headers
 
 	encode zstd gzip
 	reverse_proxy uptime-kuma:3001
-}
-
-mcp.stzky.com {
-	import secure-headers
-
-	@unauthorized {
-		not header_regexp auth Authorization `^(?i:Bearer)\s+{$MCP_ACCESS_TOKEN}$`
-	}
-
-	handle @unauthorized {
-		header Content-Type application/json
-		respond `{"error": "Unauthorized", "message": "Valid token required"}` 401
-	}
-
-	reverse_proxy gateway:8811
 }
 
 epub.ykzts.com {
