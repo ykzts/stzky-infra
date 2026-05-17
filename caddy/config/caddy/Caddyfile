@@ -48,7 +48,7 @@ stzky.com, *.stzky.com {
 	}
 
 	@photos host photos.stzky.com
-	handle @photo {
+	handle @photos {
 		import secure-headers
 
 		encode zstd gzip
