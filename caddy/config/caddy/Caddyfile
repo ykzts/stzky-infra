@@ -32,7 +32,7 @@ stzky.com, *.stzky.com {
 	}
 
 	@console host console.stzky.com
-	handle {
+	handle @console {
 		import secure-headers
 
 		encode zstd gzip
@@ -40,7 +40,7 @@ stzky.com, *.stzky.com {
 	}
 
 	@graph host graph.stzky.com
-	handle {
+	handle @graph {
 		import secure-headers
 
 		encode zstd gzip
@@ -48,7 +48,7 @@ stzky.com, *.stzky.com {
 	}
 
 	@photos host photos.stzky.com
-	handle {
+	handle @photo {
 		import secure-headers
 
 		encode zstd gzip
