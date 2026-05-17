@@ -1,5 +1,6 @@
 services:
   caddy:
+    build: .
     cap_add:
       - NET_ADMIN
     container_name: caddy
@@ -16,7 +17,6 @@ services:
       - 443:443
       - 443:443/udp
       - 80:80
-      - 127.0.0.1:2019:2019
     restart: always
     volumes:
       - caddy_config:/config
