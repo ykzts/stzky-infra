@@ -23,6 +23,7 @@ services:
       - caddy_config:/config
       - caddy_data:/data
       - ./config/caddy:/etc/caddy:ro
+      - ./public:/var/www/html:ro
 
 volumes:
   caddy_config:

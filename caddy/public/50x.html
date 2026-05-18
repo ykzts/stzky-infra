@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Service Temporarily Unavailable</title>
+	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23dc2626'/%3E%3Cpath d='M32 14 50 46H14z' fill='white'/%3E%3Crect x='30' y='26' width='4' height='11' fill='%23dc2626'/%3E%3Crect x='30' y='39' width='4' height='4' fill='%23dc2626'/%3E%3C/svg%3E">
+	<style>
+		:root {
+			color-scheme: light dark;
+			--bg: #f6f7fb;
+			--surface: #ffffff;
+			--text: #1f2937;
+			--muted: #6b7280;
+			--accent: #2563eb;
+			--border: #e5e7eb;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #0b1020;
+				--surface: #121a30;
+				--text: #e5e7eb;
+				--muted: #94a3b8;
+				--accent: #60a5fa;
+				--border: #23304f;
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100dvh;
+			display: grid;
+			place-items: center;
+			font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+			line-height: 1.6;
+			background: radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.15), transparent 45%), var(--bg);
+			color: var(--text);
+			padding: 24px;
+		}
+
+		main {
+			width: min(680px, 100%);
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 28px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+		}
+
+		p {
+			margin: 0;
+		}
+
+		.code {
+			display: inline-block;
+			font-size: 0.875rem;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			padding: 4px 10px;
+			border-radius: 9999px;
+			background: rgba(37, 99, 235, 0.12);
+			color: var(--accent);
+			margin-bottom: 14px;
+		}
+
+		h1 {
+			font-size: clamp(1.5rem, 4vw, 2rem);
+			line-height: 1.25;
+			margin: 0 0 10px;
+		}
+
+		.description {
+			color: var(--muted);
+			margin-bottom: 18px;
+		}
+
+		ul {
+			margin: 0 0 22px;
+			padding-left: 1.2rem;
+			color: var(--muted);
+		}
+
+		.actions {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+		}
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 40px;
+			padding: 0 16px;
+			border-radius: 10px;
+			text-decoration: none;
+			font-weight: 600;
+		}
+
+		.primary {
+			background: var(--accent);
+			color: #fff;
+		}
+
+		.secondary {
+			border: 1px solid var(--border);
+			color: var(--text);
+		}
+
+		.footer {
+			margin-top: 20px;
+			font-size: 0.875rem;
+			color: var(--muted);
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div class="code">50x</div>
+		<h1>Service temporarily unavailable</h1>
+		<p class="description">The service is currently unavailable due to a temporary server issue.</p>
+		<ul>
+			<li>Wait a moment and retry</li>
+			<li>Return to the shared portal and navigate again</li>
+			<li>Check service status if available</li>
+		</ul>
+		<div class="actions">
+			<a class="primary" href="https://stzky.com">Go to portal</a>
+			<a class="secondary" href="javascript:location.reload()">Try again</a>
+		</div>
+		<p class="footer">Server Error (502 / 503 / 504)</p>
+	</main>
+</body>
+</html>
