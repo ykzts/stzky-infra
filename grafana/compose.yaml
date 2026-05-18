@@ -63,6 +63,7 @@ services:
       - GF_SECURITY_CONTENT_SECURITY_POLICY=true
       - GF_SERVER_DOMAIN=graph.stzky.com
       - GF_SERVER_ROOT_URL=https://graph.stzky.com
+      - GF_SERVER_ENABLE_GZIP=false
       - GF_SMTP_ENABLED=true
       - GF_SMTP_FROM_ADDRESS=${GF_SMTP_FROM_ADDRESS}
       - GF_SMTP_FROM_NAME=${GF_SMTP_FROM_NAME}
