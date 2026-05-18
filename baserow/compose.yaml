@@ -1,0 +1,137 @@
+x-backend-variables:
+  &backend-variables
+  AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+  AWS_SECRET_ACCESS_KEY: ${AWS_ACCESS_KEY_ID:-}
+  AWS_S3_CUSTOM_DOMAIN: ${AWS_S3_CUSTOM_DOMAIN:-}
+  AWS_S3_ENDPOINT_URL: ${AWS_S3_ENDPOINT_URL:-}
+  AWS_S3_REGION_NAME: ${AWS_S3_REGION_NAME:-}
+  AWS_STORAGE_BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME:-}
+  BASEROW_PUBLIC_URL: https://base.stzky.com
+  BASEROW_JWT_SIGNING_KEY: ${BASEROW_JWT_SIGNING_KEY:?}
+  DATABASE_HOST: db
+  DATABASE_PASSWORD: ${DATABASE_PASSWORD:-baserow}
+  DATABASE_PORT: '5432'
+  DATABASE_USER: ${DATABASE_USER:-baserow}
+  DATABASE_NAME: ${DATABASE_NAME:-baserow}
+  EMAIL_SMTP: ${EMAIL_SMTP:-}
+  EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST:-}
+  EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD:-}
+  EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT:-}
+  EMAIL_SMTP_USE_TLS: ${EMAIL_SMTP_USE_TLS:-}
+  EMAIL_SMTP_USER: ${EMAIL_SMTP_USER:-}
+  FROM_EMAIL: 'Baserow <no-reply@stzky.com>'
+  PRIVATE_BACKEND_URL: http://backend:8000
+  PUBLIC_BACKEND_URL: https://base.stzky.com
+  PUBLIC_WEB_FRONTEND_URL: https://base.stzky.com
+  REDIS_HOST: redis
+  REDIS_PORT: '6379'
+  SECRET_KEY: ${SECRET_KEY:?}
+
+services:
+  backend:
+    container_name: baserow_backend
+    depends_on:
+      - db
+      - redis
+    environment:
+      <<: *backend-variables
+    image: baserow/backend:2.2.2
+    networks:
+      - local
+    ports:
+      - 8000:8000
+    restart: always
+
+  web-frontend:
+    container_name: baserow_web_frontend
+    depends_on:
+      - backend
+    environment:
+      BASEROW_PUBLIC_URL: https://base.stzky.com
+      PRIVATE_BACKEND_URL: http://backend:8000
+      PUBLIC_BACKEND_URL: https://base.stzky.com
+    image: baserow/web-frontend:2.2.2
+    networks:
+      - local
+    ports:
+      - 3000:3000
+    restart: always
+
+  celery:
+    command: celery-worker
+    container_name: baserow_celery
+    depends_on:
+      - db
+      - redis
+    environment:
+      <<: *backend-variables
+    healthcheck:
+      test: /baserow/backend/docker/docker-entrypoint.sh celery-worker-healthcheck
+    image: baserow/backend:2.2.2
+    networks:
+      - local
+    restart: always
+
+  celery-export-worker:
+    command: celery-exportworker
+    container_name: baserow_celery_export_worker
+    depends_on:
+      - db
+      - redis
+    environment:
+      <<: *backend-variables
+    healthcheck:
+      test: /baserow/backend/docker/docker-entrypoint.sh celery-exportworker-healthcheck
+    image: baserow/backend:2.2.2
+    networks:
+      - local
+    restart: always
+
+  celery-beat-worker:
+    command: celery-beat
+    container_name: baserow_celery_beat_worker
+    depends_on:
+      - db
+      - redis
+    environment:
+      <<: *backend-variables
+    healthcheck:
+      test: /baserow/backend/docker/docker-entrypoint.sh celery-beat-healthcheck
+    image: baserow/backend:2.2.2
+    networks:
+      - local
+    restart: always
+    stop_signal: SIGQUIT
+
+  db:
+    container_name: baserow_db
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-baserow}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-baserow}
+      POSTGRES_USER: ${DATABASE_USER:-baserow}
+    healthcheck:
+      interval: 10s
+      retries: 10
+      test: su postgres -c "pg_isready -U "$$POSTGRES_USER"
+    image: pgvector/pgvector:0.8.2-pg18-trixie
+    networks:
+      - local
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+  redis:
+    container_name: baserow_redis
+    healthcheck:
+      test: redis-cli ping
+    image: valkey/valkey:9.1-alpine3.23@sha256:34f4f659e02a67cfdf3995d11ae432219c936005055b2cd39a042e86280e053e
+    restart: always
+    networks:
+      - local
+
+volumes:
+  pgdata:
+
+networks:
+  local:
+    driver: bridge
