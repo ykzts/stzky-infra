@@ -13,8 +13,19 @@ services:
       - default
       - stzky-ingress
     restart: always
+    user: '0'
     volumes:
       - ./config/alloy:/etc/alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  loki:
+    command: -config.file=/etc/loki/local-config.yaml
+    container_name: loki
+    image: grafana/loki:3.7.2@sha256:191d4fdfb7264f16989f0a57f320872620a5a7c2ceeec6229212c4190ec49b86
+    restart: always
+    volumes:
+      - ./config/loki:/etc/loki:ro
+      - loki_data:/loki
 
   database:
     container_name: grafana_postgres
@@ -115,3 +126,6 @@ services:
 networks:
   stzky-ingress:
     external: true
+
+volumes:
+  loki_data:
