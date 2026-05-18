@@ -35,7 +35,7 @@ services:
       - redis
     environment:
       <<: *backend-variables
-    image: baserow/backend:2.2.2
+    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
     ports:
@@ -50,7 +50,7 @@ services:
       BASEROW_PUBLIC_URL: https://base.stzky.com
       PRIVATE_BACKEND_URL: http://backend:8000
       PUBLIC_BACKEND_URL: https://base.stzky.com
-    image: baserow/web-frontend:2.2.2
+    image: baserow/web-frontend:2.2.2@sha256:6edc9117a520399ef787cbd596f4f1cd26db2b3051c10cf26c6331636b79c9b5
     networks:
       - local
     ports:
@@ -67,7 +67,7 @@ services:
       <<: *backend-variables
     healthcheck:
       test: /baserow/backend/docker/docker-entrypoint.sh celery-worker-healthcheck
-    image: baserow/backend:2.2.2
+    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
     restart: always
@@ -82,7 +82,7 @@ services:
       <<: *backend-variables
     healthcheck:
       test: /baserow/backend/docker/docker-entrypoint.sh celery-exportworker-healthcheck
-    image: baserow/backend:2.2.2
+    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
     restart: always
@@ -97,7 +97,7 @@ services:
       <<: *backend-variables
     healthcheck:
       test: /baserow/backend/docker/docker-entrypoint.sh celery-beat-healthcheck
-    image: baserow/backend:2.2.2
+    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
     restart: always
@@ -113,7 +113,7 @@ services:
       interval: 10s
       retries: 10
       test: su postgres -c "pg_isready -U "$$POSTGRES_USER"
-    image: pgvector/pgvector:0.8.2-pg18-trixie
+    image: pgvector/pgvector:0.8.2-pg18-trixie@sha256:b7337db8fe39d12fe8ecb0003c72680f24479813a744b43154eee6f2eab5a5f3
     networks:
       - local
     restart: always
