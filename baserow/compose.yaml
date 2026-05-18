@@ -1,15 +1,28 @@
 x-backend-variables:
   &backend-variables
-  BASEROW_PUBLIC_URL: ${BASEROW_PUBLIC_URL:-http://localhost:3000}
-  BASEROW_JWT_SIGNING_KEY: ${BASEROW_JWT_SIGNING_KEY:-}
+  AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+  AWS_SECRET_ACCESS_KEY: ${AWS_ACCESS_KEY_ID:-}
+  AWS_S3_CUSTOM_DOMAIN: ${AWS_S3_CUSTOM_DOMAIN:-}
+  AWS_S3_ENDPOINT_URL: ${AWS_S3_ENDPOINT_URL:-}
+  AWS_S3_REGION_NAME: ${AWS_S3_REGION_NAME:-}
+  AWS_STORAGE_BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME:-}
+  BASEROW_PUBLIC_URL: https://base.stzky.com
+  BASEROW_JWT_SIGNING_KEY: ${BASEROW_JWT_SIGNING_KEY:?}
   DATABASE_HOST: db
   DATABASE_PASSWORD: ${DATABASE_PASSWORD:-baserow}
   DATABASE_PORT: '5432'
   DATABASE_USER: ${DATABASE_USER:-baserow}
   DATABASE_NAME: ${DATABASE_NAME:-baserow}
+  EMAIL_SMTP: ${EMAIL_SMTP:-}
+  EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST:-}
+  EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD:-}
+  EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT:-}
+  EMAIL_SMTP_USE_TLS: ${EMAIL_SMTP_USE_TLS:-}
+  EMAIL_SMTP_USER: ${EMAIL_SMTP_USER:-}
+  FROM_EMAIL: 'Baserow <no-reply@stzky.com>'
   PRIVATE_BACKEND_URL: http://backend:8000
-  PUBLIC_BACKEND_URL: ${PUBLIC_BACKEND_URL:-http://localhost:8000}
-  PUBLIC_WEB_FRONTEND_URL: ${PUBLIC_WEB_FRONTEND_URL:-http://localhost:3000}
+  PUBLIC_BACKEND_URL: https://base.stzky.com
+  PUBLIC_WEB_FRONTEND_URL: https://base.stzky.com
   REDIS_HOST: redis
   REDIS_PORT: '6379'
   SECRET_KEY: ${SECRET_KEY:?}
@@ -34,9 +47,9 @@ services:
     depends_on:
       - backend
     environment:
-      BASEROW_PUBLIC_URL: ${BASEROW_PUBLIC_URL:-http://localhost:3000}
+      BASEROW_PUBLIC_URL: https://base.stzky.com
       PRIVATE_BACKEND_URL: http://backend:8000
-      PUBLIC_BACKEND_URL: ${PUBLIC_BACKEND_URL:-http://localhost:8000}
+      PUBLIC_BACKEND_URL: https://base.stzky.com
     image: baserow/web-frontend:2.2.2
     networks:
       - local
