@@ -23,6 +23,11 @@ stzky.com, *.stzky.com {
 		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
 	}
 
+	log {
+		output stdout
+		format json
+	}
+
 	@apex host stzky.com
 	handle @apex {
 		import secure-headers
@@ -115,6 +120,11 @@ stzky.com, *.stzky.com {
 }
 
 status.ykzts.com, status.ykzts.technology {
+	log {
+		output stdout
+		format json
+	}
+
 	import secure-headers
 
 	encode zstd gzip
@@ -122,6 +132,11 @@ status.ykzts.com, status.ykzts.technology {
 }
 
 epub.ykzts.com {
+	log {
+		output stdout
+		format json
+	}
+
 	encode zstd gzip
 	reverse_proxy epub-web:8080 {
 		transport http {
