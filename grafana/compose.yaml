@@ -3,6 +3,7 @@ services:
     command:
       - run
       - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
       - /etc/alloy/config.alloy
     container_name: alloy
     environment:
@@ -16,6 +17,7 @@ services:
     user: '0'
     volumes:
       - ./config/alloy:/etc/alloy:ro
+      - alloy_data:/var/lib/alloy
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   loki:
@@ -128,4 +130,5 @@ networks:
     external: true
 
 volumes:
+  alloy_data:
   loki_data:
