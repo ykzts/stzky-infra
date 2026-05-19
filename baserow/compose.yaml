@@ -38,8 +38,6 @@ services:
     image: baserow/backend:2.2.2
     networks:
       - local
-    ports:
-      - 8000:8000
     restart: always
 
   web-frontend:
@@ -53,8 +51,6 @@ services:
     image: baserow/web-frontend:2.2.2
     networks:
       - local
-    ports:
-      - 3000:3000
     restart: always
 
   celery:
