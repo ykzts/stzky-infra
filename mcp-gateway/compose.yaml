@@ -37,7 +37,7 @@ services:
         target: /docker-mcp
 
   firecrawl:
-    image: ghcr.io/firecrawl/firecrawl:latest@sha256:89c19e85ac25b41d01819cb9a0727df0d8986382ab7116d2e92c40c8003fa9f1
+    image: ghcr.io/firecrawl/firecrawl:latest@sha256:ee3074392fd920d11f595d2088aea8a09cef4001c3a81c47ba04b43cb379245c
     command: ["node", "dist/src/harness.js", "--start-docker"]
     environment:
       - HOST=0.0.0.0
