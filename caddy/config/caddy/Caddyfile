@@ -64,7 +64,7 @@ stzky.com, *.stzky.com {
 	}
 
 	@base host base.stzky.com
-	handle @console {
+	handle @base {
 		encode zstd gzip
 
 		@backend_routes path /api/* /ws/* /mcp/* /assistant/*
