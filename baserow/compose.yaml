@@ -38,6 +38,7 @@ services:
     image: baserow/backend:2.2.2
     networks:
       - local
+      - stzky-ingress
     restart: always
 
   web-frontend:
@@ -51,6 +52,7 @@ services:
     image: baserow/web-frontend:2.2.2
     networks:
       - local
+      - stzky-ingress
     restart: always
 
   celery:
@@ -131,3 +133,5 @@ volumes:
 networks:
   local:
     driver: bridge
+  stzky-ingress:
+    external: true
