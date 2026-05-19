@@ -63,6 +63,18 @@ stzky.com, *.stzky.com {
 		}
 	}
 
+	@base host base.stzky.com
+	handle @console {
+		encode zstd gzip
+
+		@backend_routes path /api/* /ws/* /mcp/* /assistant/*
+		handle @backend_routes {
+			reverse_proxy baserow_backend:8000
+		}
+
+		reverse_proxy baserow_web_frontend:3000
+	}
+
 	@console host console.stzky.com
 	handle @console {
 		encode zstd gzip
@@ -73,6 +85,20 @@ stzky.com, *.stzky.com {
 	handle @graph {
 		encode zstd gzip
 		reverse_proxy grafana:3000
+	}
+
+	@mcp host mcp.stzky.com
+	handle @mcp {
+		@unauthorized {
+			not header_regexp auth Authorization `^(?i:Bearer)\s+{$MCP_ACCESS_TOKEN}$`
+		}
+
+		handle @unauthorized {
+			header Content-Type application/json
+			respond `{"error": "Unauthorized", "message": "Valid token required"}` 401
+		}
+
+		reverse_proxy gateway:8811
 	}
 
 	@photos host photos.stzky.com
@@ -95,28 +121,14 @@ stzky.com, *.stzky.com {
 		reverse_proxy prometheus:9090
 	}
 
-	@mcp host mcp.stzky.com
-	handle @mcp {
-		@unauthorized {
-			not header_regexp auth Authorization `^(?i:Bearer)\s+{$MCP_ACCESS_TOKEN}$`
-		}
-
-		handle @unauthorized {
-			header Content-Type application/json
-			respond `{"error": "Unauthorized", "message": "Valid token required"}` 401
-		}
-
-		reverse_proxy gateway:8811
-	}
-
-	@uptime host uptime.stzky.com
-	handle @uptime {
+	@status host status.stzky.com
+	handle @status {
 		encode zstd gzip
 		reverse_proxy uptime-kuma:3001
 	}
 
-	@status host status.stzky.com
-	handle @status {
+	@uptime host uptime.stzky.com
+	handle @uptime {
 		encode zstd gzip
 		reverse_proxy uptime-kuma:3001
 	}
