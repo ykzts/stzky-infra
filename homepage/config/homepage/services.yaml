@@ -10,7 +10,7 @@
         description: Open-source no-code database and Airtable alternative.
         href: https://base.stzky.com/
         icon: /images/icons/baserow.png
-        siteMonitor: https://base.stzky.com/api/_health
+        siteMonitor: https://base.stzky.com/api/_health/
 
 - Infrastructure:
     - Grafana:
