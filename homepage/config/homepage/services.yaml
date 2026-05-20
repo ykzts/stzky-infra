@@ -6,6 +6,12 @@
         icon: /images/icons/immich.png
         siteMonitor: https://photos.stzky.com/api/server/ping
 
+    - Baserow:
+        description: Open-source no-code database and Airtable alternative.
+        href: https://base.stzky.com/
+        icon: /images/icons/baserow.png
+        siteMonitor: https://base.stzky.com/api/_health
+
 - Infrastructure:
     - Grafana:
         description: Monitoring and observability.
