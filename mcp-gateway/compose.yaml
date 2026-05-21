@@ -13,7 +13,7 @@ services:
       - mcp-firecrawl
 
   mcp-firecrawl:
-    image: mcp/firecrawl@sha256:a3b74109dced0a16aea59e3c38903fa9a0788498e8652ddfbecf0155172f7af6
+    image: mcp/firecrawl@sha256:bd3d3a3a71a7803b61255447072db65835fe82558749ac2297a33806da3a327e
     entrypoint: ["/docker-mcp/misc/docker-mcp-bridge", "node", "dist/index.js"]
     environment:
       - FIRECRAWL_API_URL=${FIRECRAWL_API_URL:-http://firecrawl:3002}
