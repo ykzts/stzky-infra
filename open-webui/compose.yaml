@@ -9,6 +9,8 @@ services:
     container_name: ovms
     devices:
       - /dev/dri:/dev/dri
+    environment:
+      HF_TOKEN: ${HF_TOKEN}
     group_add:
       - "993"
     image: openvino/model_server:2026.1-gpu@sha256:22f92a1a5ad6784384e47296c43bde239887a623e75de45b0e1802659de416a6
@@ -40,6 +42,7 @@ services:
       DATABASE_URL: postgresql://webui:${DB_PASSWORD}@db:5432/openwebui
       VECTOR_DB: pgvector
       PGVECTOR_DB_URL: postgresql://webui:${DB_PASSWORD}@db:5432/openwebui
+      HF_TOKEN: ${HF_TOKEN}
     image: ghcr.io/open-webui/open-webui:v0.9.5@sha256:e045bde3b004cc7f8c319412345eb56c87ea6ac57031534a31ca37ad5424beb3
     networks:
       - default
