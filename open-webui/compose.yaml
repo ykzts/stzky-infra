@@ -1,0 +1,58 @@
+services:
+  ovms:
+    command: >
+      --source_model OpenVINO/gemma-4-E4B-it-int4-ov
+      --model_repository_path /models
+      --task text_generation
+      --target_device GPU
+      --rest_port 8000
+    container_name: ovms
+    devices:
+      - /dev/dri:/dev/dri
+    group_add:
+      - "109"
+    image: openvino/model_server:2026.1-gpu@sha256:22f92a1a5ad6784384e47296c43bde239887a623e75de45b0e1802659de416a6
+    restart: always
+    volumes:
+      - ovms-models:/models
+
+  db:
+    container_name: open-webui-db
+    image: pgvector/pgvector:0.8.2-pg18-trixie@sha256:b7337db8fe39d12fe8ecb0003c72680f24479813a744b43154eee6f2eab5a5f3
+    environment:
+      POSTGRES_USER: webui
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: openwebui
+    restart: always
+    volumes:
+      - pg-data:/var/lib/postgresql
+
+  open-webui:
+    container_name: open-webui
+    depends_on:
+      - ovms
+      - db
+    environment:
+      OPENAI_API_BASE_URL: http://ovms:8000/v1
+      OPENAI_API_KEY: na
+      WEBUI_AUTH: True
+      ENABLE_SIGNUP: ${ENABLE_SIGNUP:-False}
+      DATABASE_URL: postgresql://webui:${DB_PASSWORD}@db:5432/openwebui
+      VECTOR_DB: pgvector
+      PGVECTOR_DB_URL: postgresql://webui:${DB_PASSWORD}@db:5432/openwebui
+    image: ghcr.io/open-webui/open-webui:v0.9.5@sha256:e045bde3b004cc7f8c319412345eb56c87ea6ac57031534a31ca37ad5424beb3
+    networks:
+      - default
+      - stzky-ingress
+    restart: always
+    volumes:
+      - open-webui-data:/app/backend/data
+
+volumes:
+  ovms-models:
+  pg-data:
+  open-webui-data:
+
+networks:
+  stzky-ingress:
+    external: true

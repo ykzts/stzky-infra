@@ -75,6 +75,12 @@ stzky.com, *.stzky.com {
 		reverse_proxy baserow_web_frontend:3000
 	}
 
+	@chat host chat.stzky.com
+	handle @chat {
+		encode zstd gzip
+		reverse_proxy open-webui:3000
+	}
+
 	@console host console.stzky.com
 	handle @console {
 		encode zstd gzip
