@@ -78,7 +78,7 @@ stzky.com, *.stzky.com {
 	@chat host chat.stzky.com
 	handle @chat {
 		encode zstd gzip
-		reverse_proxy open-webui:3000
+		reverse_proxy open-webui:8080
 	}
 
 	@console host console.stzky.com
