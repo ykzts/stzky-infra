@@ -1,7 +1,7 @@
 services:
   ovms:
     command: >
-      --source_model OpenVINO/gemma-2-2b-it-int4-ov
+      --source_model OpenVINO/gemma-3-4b-it-int4-cw-ov
       --model_repository_path /models
       --task text_generation
       --target_device GPU
