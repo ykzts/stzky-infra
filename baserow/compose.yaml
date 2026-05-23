@@ -110,7 +110,7 @@ services:
     healthcheck:
       interval: 10s
       retries: 10
-      test: su postgres -c "pg_isready -U "$$POSTGRES_USER"
+      test: su postgres -c "pg_isready -U $$POSTGRES_USER"
     image: pgvector/pgvector:0.8.2-pg18-trixie@sha256:b7337db8fe39d12fe8ecb0003c72680f24479813a744b43154eee6f2eab5a5f3
     networks:
       - local
