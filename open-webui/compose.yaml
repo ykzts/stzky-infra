@@ -2,7 +2,7 @@ services:
   ovms:
     command: >
       --source_model OpenVINO/gemma-3-12b-it-int8-ov
-      --model_name Gemma 3
+      --model_name "Gemma 3"
       --model_repository_path /models
       --task text_generation
       --target_device GPU
