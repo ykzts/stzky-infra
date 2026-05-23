@@ -16,7 +16,7 @@ services:
     environment:
       K3S_KUBECONFIG_OUTPUT: /k8s/kubeconfig.yaml
       K3S_KUBECONFIG_MODE: "666"
-    image: rancher/k3s:v1.36.0-k3s1@sha256:38069dc4a22a056f427f4f37c887303697cc817f7735e57dd142e169af7f398f
+    image: rancher/k3s:v1.36.1-k3s1@sha256:08fdebd14db9ab7d5ea821d5bfa95d02341a6ef886842fcc8d9dfd0e9fa9e0cd
     privileged: true
     volumes:
       - k3s-kubeconfig:/k8s
