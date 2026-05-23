@@ -1,26 +1,32 @@
 ---
 - Services:
     - Immich:
-        description: Self-hosted photo and video backup solution.
-        href: https://photos.stzky.com/
+        description: Photo and video backup and management.
+        href: https://photos.stzky.com
         icon: /images/icons/immich.png
         siteMonitor: https://photos.stzky.com/api/server/ping
 
+    - Open WebUI:
+        description: AI chat interface.
+        href: https://chat.stzky.com
+        icon: /images/icons/open-webui.png
+        siteMonitor: https://chat.stzky.com/health
+
     - Baserow:
-        description: Open-source no-code database and Airtable alternative.
-        href: https://base.stzky.com/
+        description: No-code database platform.
+        href: https://base.stzky.com
         icon: /images/icons/baserow.png
         siteMonitor: https://base.stzky.com/api/_health/
 
 - Infrastructure:
     - Grafana:
-        description: Monitoring and observability.
-        href: https://graph.stzky.com/
+        description: Metrics visualization and dashboarding.
+        href: https://graph.stzky.com
         icon: /images/icons/grafana.png
         siteMonitor: https://graph.stzky.com/healthz
 
     - Uptime Kuma:
-        description: Universal monitoring and observability.
-        href: https://uptime.stzky.com/
+        description: Service monitoring and status checks.
+        href: https://uptime.stzky.com
         icon: /images/icons/uptime-kuma.svg
-        siteMonitor: https://uptime.stzky.com/
+        siteMonitor: https://uptime.stzky.com
