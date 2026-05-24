@@ -7,7 +7,7 @@ services:
       - stzky-ingress
     command:
       - --transport=streaming
-      - --servers=firecrawl
+      - --servers=firecrawl,grafana
       - --port=8811
       - --static=true
     depends_on:
