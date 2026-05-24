@@ -37,14 +37,12 @@ services:
       - ovms
       - db
     environment:
-      OPENAI_API_BASE_URL: http://ovms:8000/v1
-      OPENAI_API_KEY: na
-      WEBUI_AUTH: True
-      ENABLE_SIGNUP: ${ENABLE_SIGNUP:-False}
       DATABASE_URL: postgresql://webui:${DB_PASSWORD}@db:5432/openwebui
-      VECTOR_DB: pgvector
-      PGVECTOR_DB_URL: postgresql://webui:${DB_PASSWORD}@db:5432/openwebui
+      ENABLE_SIGNUP: ${ENABLE_SIGNUP:-False}
       HF_TOKEN: ${HF_TOKEN}
+      PGVECTOR_DB_URL: postgresql://webui:${DB_PASSWORD}@db:5432/openwebui
+      VECTOR_DB: pgvector
+      WEBUI_SECRET_KEY: ${WEBUI_SECRET_KEY:-}
     image: ghcr.io/open-webui/open-webui:v0.9.5@sha256:e045bde3b004cc7f8c319412345eb56c87ea6ac57031534a31ca37ad5424beb3
     networks:
       - default
