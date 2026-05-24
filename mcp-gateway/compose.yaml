@@ -20,9 +20,6 @@ services:
     environment:
       - FIRECRAWL_API_URL=${FIRECRAWL_API_URL:-http://firecrawl:3002}
       - FIRECRAWL_API_KEY=${FIRECRAWL_API_KEY:-}
-    depends_on:
-      firecrawl:
-        condition: service_started
     networks:
       - default
       - stzky-ingress
