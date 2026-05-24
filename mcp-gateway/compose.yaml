@@ -14,6 +14,8 @@ services:
       - mcp-firecrawl
       - mcp-grafana
     restart: always
+    ports:
+      - 8811:8811
 
   mcp-firecrawl:
     container_name: mcp-firecrawl
@@ -60,7 +62,7 @@ services:
       - docker-mcp=true
       - docker-mcp-tool-type=mcp
       - docker-mcp-name=grafana
-      - docker-mcp-transport=stdio
+      - docker-mcp-transport=sse
     volumes:
       - type: image
         source: docker/mcp-gateway
