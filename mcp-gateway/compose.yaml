@@ -44,7 +44,7 @@ services:
   mcp-grafana:
     container_name: mcp-grafana
     image: mcp/grafana:latest@sha256:55abb94eb96ccf1c5bfbe400ddce3327751e47c7e74fc53388c4a9d96aa7b1a5
-    entrypoint: ["/docker-mcp/misc/docker-mcp-bridge", "./mcp-grafana"]
+    entrypoint: ["/docker-mcp/misc/docker-mcp-bridge", "/app/mcp-grafana", "--transport", "sse", "--address"]
     environment:
       - GRAFANA_API_URL=${GRAFANA_API_URL:-http://grafana:3000}
       - GRAFANA_SERVICE_ACCOUNT_TOKEN=${GRAFANA_SERVICE_ACCOUNT_TOKEN:-}
