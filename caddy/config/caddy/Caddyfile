@@ -127,18 +127,6 @@ stzky.com, *.stzky.com {
 		reverse_proxy prometheus:9090
 	}
 
-	@status host status.stzky.com
-	handle @status {
-		encode zstd gzip
-		reverse_proxy uptime-kuma:3001
-	}
-
-	@uptime host uptime.stzky.com
-	handle @uptime {
-		encode zstd gzip
-		reverse_proxy uptime-kuma:3001
-	}
-
 	@www host www.stzky.com
 	handle @www {
 		encode zstd gzip
@@ -148,14 +136,6 @@ stzky.com, *.stzky.com {
 	handle {
 		error "Not Found" 404
 	}
-}
-
-status.ykzts.com, status.ykzts.technology {
-	import secure-headers
-	import json-log
-
-	encode zstd gzip
-	reverse_proxy uptime-kuma:3001
 }
 
 epub.ykzts.com {
