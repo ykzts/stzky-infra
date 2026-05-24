@@ -14,8 +14,6 @@ services:
       - mcp-firecrawl
       - mcp-grafana
     restart: always
-    ports:
-      - 8811:8811
 
   mcp-firecrawl:
     container_name: mcp-firecrawl
