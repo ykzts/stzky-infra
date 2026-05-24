@@ -60,7 +60,7 @@ services:
       - docker-mcp=true
       - docker-mcp-tool-type=mcp
       - docker-mcp-name=grafana
-      - docker-mcp-transport=stdio
+      - docker-mcp-transport=sse
     volumes:
       - type: image
         source: docker/mcp-gateway
