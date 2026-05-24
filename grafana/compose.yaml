@@ -20,14 +20,20 @@ services:
       - alloy_data:/var/lib/alloy
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  loki:
-    command: -config.file=/etc/loki/local-config.yaml
-    container_name: loki
-    image: grafana/loki:3.7.2@sha256:191d4fdfb7264f16989f0a57f320872620a5a7c2ceeec6229212c4190ec49b86
+  cadvisor:
+    container_name: cadvisor
+    detach: true
+    devices:
+      - /dev/kmsg:/dev/kmsg:
+    image: ghcr.io/google/cadvisor:0.57.0@sha256:e75bdb03b74b0b6995f208f166fead2e6e555dde73e44200113bb26f41b1981d
+    privileged: true
     restart: always
     volumes:
-      - ./config/loki:/etc/loki:ro
-      - loki_data:/loki
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
 
   database:
     container_name: grafana_postgres
@@ -80,6 +86,15 @@ services:
     user: '0'
     volumes:
       - /opt/grafana/grafana:/var/lib/grafana
+
+  loki:
+    command: -config.file=/etc/loki/local-config.yaml
+    container_name: loki
+    image: grafana/loki:3.7.2@sha256:191d4fdfb7264f16989f0a57f320872620a5a7c2ceeec6229212c4190ec49b86
+    restart: always
+    volumes:
+      - ./config/loki:/etc/loki:ro
+      - loki_data:/loki
 
   node-exporter:
     command:
