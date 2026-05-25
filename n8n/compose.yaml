@@ -14,8 +14,15 @@ services:
       DB_TYPE: postgresdb
       GENERIC_TIMEZONE: Asia/Tokyo
       N8N_EDITOR_BASE_URL: https://flow.stzky.com
+      N8N_EMAIL_MODE: smtp
       N8N_HOST: flow.stzky.com
       N8N_PROTOCOL: https
+      N8N_SMTP_HOST: ${N8N_SMTP_HOST:-}
+      N8N_SMTP_PASS: ${N8N_SMTP_PASS:-}
+      N8N_SMTP_PORT: ${N8N_SMTP_PORT:-}
+      N8N_SMTP_SENDER: ${N8N_SMTP_SENDER:-}
+      N8N_SMTP_STARTTLS: 'true'
+      N8N_SMTP_USER: ${N8N_SMTP_USER:-}
       VUE_APP_URL_BASE_API: https://flow.stzky.com
       WEBHOOK_URL: https://flow.stzky.com
     networks:
