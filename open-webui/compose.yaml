@@ -5,7 +5,7 @@ services:
       --model_name gemma-3-4b
       --model_repository_path /models
       --task text_generation
-      --target_device GPU
+      --target_device CPU
       --rest_port 8000
       --max_num_batched_tokens 32768
       --cache_size 8
