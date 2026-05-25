@@ -1,0 +1,47 @@
+services:
+  n8n:
+    container_name: n8n
+    image: docker.n8n.io/n8nio/n8n:2.21.7
+    restart: always
+    depends_on:
+      n8n-db:
+        condition: service_healthy
+    environment:
+      GENERIC_TIMEZONE:
+      N8N_HOST: flow.stzky.com
+      N8N_PROTOCOL: https
+      DB_POSTGRES_HOST: n8n-db
+      DB_POSTGRES_DATABASE: ${POSTGRES_DB:-n8n}
+      DB_POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-n8n}
+      DB_POSTGRES_PORT: '5432'
+      DB_POSTGRES_USER: ${POSTGRES_USER:-n8n}
+      DB_TYPE: postgresdb
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - default
+      - stzky-ingress
+
+  n8n-db:
+    container_name: n8n_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-n8n}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-n8n}
+      POSTGRES_USER: ${POSTGRES_USER:-n8n}
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      timeout: 5s
+    image: postgres:18.4-alpine3.23@sha256:96d56f7f57c6aacd1fcb908bc83b345ec5f83231ee486dd66a1baadce274db88
+    restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql
+
+volumes:
+  n8n_data:
+  pg_data:
+
+networks:
+  stzky-ingress:
+    external: true
