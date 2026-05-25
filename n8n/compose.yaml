@@ -13,8 +13,11 @@ services:
       DB_POSTGRESDB_USER: ${POSTGRES_USER:-n8n}
       DB_TYPE: postgresdb
       GENERIC_TIMEZONE: Asia/Tokyo
+      N8N_EDITOR_BASE_URL: https://flow.stzky.com
       N8N_HOST: flow.stzky.com
       N8N_PROTOCOL: https
+      VUE_APP_URL_BASE_API: https://flow.stzky.com
+      WEBHOOK_URL: https://flow.stzky.com
     networks:
       - default
       - stzky-ingress
