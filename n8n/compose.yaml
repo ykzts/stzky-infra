@@ -21,6 +21,7 @@ services:
       N8N_SMTP_PASS: ${N8N_SMTP_PASS:-}
       N8N_SMTP_PORT: ${N8N_SMTP_PORT:-}
       N8N_SMTP_SENDER: ${N8N_SMTP_SENDER:-}
+      N8N_SMTP_SSL: 'false'
       N8N_SMTP_STARTTLS: 'true'
       N8N_SMTP_USER: ${N8N_SMTP_USER:-}
       VUE_APP_URL_BASE_API: https://flow.stzky.com
