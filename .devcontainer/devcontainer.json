@@ -1,4 +1,8 @@
 {
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -6,15 +10,15 @@
       ]
     }
   },
-  "dockerComposeFile": "compose.yaml",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2.16.1": {
+    "ghcr.io/devcontainers/features/docker-in-docker:3.0.1": {
       "moby": false,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1.1.0": {
       "version": "latest"
     }
   },
   "name": "stzky infra",
-  "postCreateCommand": "bash scripts/setup-k8s.sh",
-  "service": "app",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename:-stzky-compose}"
+  "postCreateCommand": "./scripts/bootstrap.sh",
 }

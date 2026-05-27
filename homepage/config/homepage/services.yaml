@@ -1,4 +1,3 @@
----
 - Services:
     - Immich:
         description: Photo and video backup and management.

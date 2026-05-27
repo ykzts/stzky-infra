@@ -1,7 +1,7 @@
 services:
   database:
     healthcheck:
-      test: pg_isready -U postgres
+      test: ['CMD', 'pg_isready', '-U', 'postgres']
       interval: 10s
       timeout: 5s
       retries: 5

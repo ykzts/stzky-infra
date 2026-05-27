@@ -1,5 +1,4 @@
-x-backend-variables:
-  &backend-variables
+x-backend-variables: &backend-variables
   AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
   AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
   AWS_S3_CUSTOM_DOMAIN: ${AWS_S3_CUSTOM_DOMAIN:-}
@@ -34,7 +33,7 @@ services:
       - db
       - redis
     environment:
-      <<: *backend-variables
+      !!merge <<: *backend-variables
     image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
@@ -62,9 +61,9 @@ services:
       - db
       - redis
     environment:
-      <<: *backend-variables
+      !!merge <<: *backend-variables
     healthcheck:
-      test: /baserow/backend/docker/docker-entrypoint.sh celery-worker-healthcheck
+      test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-worker-healthcheck']
     image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
@@ -77,9 +76,9 @@ services:
       - db
       - redis
     environment:
-      <<: *backend-variables
+      !!merge <<: *backend-variables
     healthcheck:
-      test: /baserow/backend/docker/docker-entrypoint.sh celery-exportworker-healthcheck
+      test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-exportworker-healthcheck']
     image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
@@ -92,9 +91,9 @@ services:
       - db
       - redis
     environment:
-      <<: *backend-variables
+      !!merge <<: *backend-variables
     healthcheck:
-      test: /baserow/backend/docker/docker-entrypoint.sh celery-beat-healthcheck
+      test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-beat-healthcheck']
     image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
     networks:
       - local
@@ -110,7 +109,7 @@ services:
     healthcheck:
       interval: 10s
       retries: 10
-      test: su postgres -c "pg_isready -U $$POSTGRES_USER"
+      test: ['CMD', 'su', 'postgres', '-c', 'pg_isready -U $$POSTGRES_USER']
     image: pgvector/pgvector:0.8.2-pg18-trixie@sha256:b7337db8fe39d12fe8ecb0003c72680f24479813a744b43154eee6f2eab5a5f3
     networks:
       - local
@@ -121,7 +120,7 @@ services:
   redis:
     container_name: baserow_redis
     healthcheck:
-      test: redis-cli ping
+      test: ['CMD', 'redis-cli', 'ping']
     image: valkey/valkey:9.1-alpine3.23@sha256:a35428eba9043cc0b79dbe54100f0c92784f2de00ad09b01182bfb1c5c83d1bd
     restart: always
     networks:

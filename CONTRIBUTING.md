@@ -9,10 +9,22 @@
 このプロジェクトでは、YAMLファイルのフォーマットに`yamlfmt`を使用しています。このツールは`.devcontainer/Dockerfile`でインストールされています。
 
 ```bash
-yamlfmt
+yamlfmt .
 ```
 
 変更をコミットする前に、必ずこのコマンドを実行してYAMLファイルをフォーマットしてください。
+
+### Compose記述ルール
+
+Composeファイルの可読性と運用性を維持するため、以下のルールに統一してください。
+
+1. `services.*.restart` は運用用のComposeファイルで `always` を使用する
+2. `services.*.healthcheck.test` は `['CMD', ...]` 形式で記述する
+3. `services.*` 配下の各サービス直下プロパティはアルファベット順で記述する
+
+補足:
+- `compose.test.yaml` はテスト目的のため、`restart` を必須とはしません
+- `CMD-SHELL` と文字列形式の `healthcheck.test` は使用しません
 
 ### テスト
 

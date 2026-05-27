@@ -4,6 +4,3 @@
 
 # Compose override files (generated during local testing)
 compose.override.yaml
-
-# Helm chart dependencies
-k8s/*/charts/

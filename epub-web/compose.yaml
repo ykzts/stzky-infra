@@ -12,8 +12,8 @@ services:
       EPUB_WEB_SHUTDOWN_TIMEOUT: 15s
     image: ghcr.io/publira/epub-web:1.1.4@sha256:617baa62bdb9b5d66ea45da2a8ec9ea51f363d464c4692803aa598728a18eaec
     networks:
-      - stzky-ingress
       - default
+      - stzky-ingress
     restart: always
 
 networks:
