@@ -10,16 +10,16 @@
 
 各サービスの詳細は、各ディレクトリ配下のREADMEを参照してください。
 
-- [Baserow](baserow/README.md)
-- [Caddy](caddy/README.md)
-- [EPUB Web](epub-web/README.md)
-- [Firecrawl](firecrawl/README.md)
-- [Grafana](grafana/README.md)
-- [Homepage](homepage/README.md)
-- [Immich](immich/README.md)
-- [MCP Gateway](mcp-gateway/README.md)
-- [n8n](n8n/README.md)
-- [Open WebUI](open-webui/README.md)
+- [Baserow](services/baserow/README.md)
+- [Caddy](services/caddy/README.md)
+- [EPUB Web](services/epub-web/README.md)
+- [Firecrawl](services/firecrawl/README.md)
+- [Grafana](services/grafana/README.md)
+- [Homepage](services/homepage/README.md)
+- [Immich](services/immich/README.md)
+- [MCP Gateway](services/mcp-gateway/README.md)
+- [n8n](services/n8n/README.md)
+- [Open WebUI](services/open-webui/README.md)
 
 ## 使い方
 
@@ -40,7 +40,7 @@ docker compose up -d
 例えば、Grafanaをデプロイする場合は次のようにします。
 
 ```bash
-cd grafana
+cd services/grafana
 docker compose up -d
 ```
 
