@@ -7,12 +7,13 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     environment:
-      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-      - MCP_ACCESS_TOKEN=${MCP_ACCESS_TOKEN}
-      - PROMETHEUS_HASHED_PASSWORD=${PROMETHEUS_HASHED_PASSWORD}
-      - PROMETHEUS_AUTH_USERNAME=${ALLOY_PROMETHEUS_USERNAME}
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+      MCP_ACCESS_TOKEN: ${MCP_ACCESS_TOKEN}
+      PROMETHEUS_HASHED_PASSWORD: ${PROMETHEUS_HASHED_PASSWORD}
+      PROMETHEUS_AUTH_USERNAME: ${ALLOY_PROMETHEUS_USERNAME}
     image: ghcr.io/ykzts/caddy
     networks:
+      - default
       - stzky-ingress
     ports:
       - 443:443

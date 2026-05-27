@@ -1,22 +1,22 @@
 services:
   firecrawl:
+    command: ['node', 'dist/src/harness.js', '--start-docker']
     container_name: firecrawl
     image: ghcr.io/firecrawl/firecrawl:latest@sha256:4bdf6d61c4f0690b3c9f8fe10600b773145cc6df45b3abef65697b634de19fa3
-    command: ["node", "dist/src/harness.js", "--start-docker"]
     environment:
-      - HOST=0.0.0.0
-      - PORT=3002
-      - USE_DB_AUTHENTICATION=false
-      - REDIS_URL=redis://firecrawl-redis:6379
-      - REDIS_RATE_LIMIT_URL=redis://firecrawl-redis:6379
-      - PLAYWRIGHT_MICROSERVICE_URL=http://firecrawl-playwright:3000/scrape
-      - NUQ_RABBITMQ_URL=amqp://firecrawl-rabbitmq:5672
-      - POSTGRES_HOST=firecrawl-postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=${FIRECRAWL_POSTGRES_USER:-firecrawl}
-      - POSTGRES_PASSWORD=${FIRECRAWL_POSTGRES_PASSWORD:-firecrawl_password}
-      - POSTGRES_DB=${FIRECRAWL_POSTGRES_DB:-firecrawl}
-      - BULL_AUTH_KEY=${FIRECRAWL_BULL_AUTH_KEY:-CHANGEME}
+      HOST: 0.0.0.0
+      PORT: 3002
+      USE_DB_AUTHENTICATION: false
+      REDIS_URL: redis://firecrawl-redis:6379
+      REDIS_RATE_LIMIT_URL: redis://firecrawl-redis:6379
+      PLAYWRIGHT_MICROSERVICE_URL: http://firecrawl-playwright:3000/scrape
+      NUQ_RABBITMQ_URL: amqp://firecrawl-rabbitmq:5672
+      POSTGRES_HOST: firecrawl-postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${FIRECRAWL_POSTGRES_USER:-firecrawl}
+      POSTGRES_PASSWORD: ${FIRECRAWL_POSTGRES_PASSWORD:-firecrawl_password}
+      POSTGRES_DB: ${FIRECRAWL_POSTGRES_DB:-firecrawl}
+      BULL_AUTH_KEY: ${FIRECRAWL_BULL_AUTH_KEY:-CHANGEME}
     depends_on:
       firecrawl-redis:
         condition: service_started
@@ -29,10 +29,10 @@ services:
     networks:
       - default
       - stzky-ingress
-    restart: unless-stopped
-    init: true
     cpus: 2
+    init: true
     mem_limit: 4g
+    restart: always
     security_opt:
       - no-new-privileges
 
@@ -40,20 +40,22 @@ services:
     container_name: firecrawl-playwright
     image: ghcr.io/firecrawl/playwright-service:latest@sha256:443030bed5c8162c85998276f76bf7f8a95545dfeb088581f41f91506cfa1017
     environment:
-      - PORT=3000
-    init: true
+      PORT: 3000
     cpus: 1
+    init: true
     mem_limit: 2g
+    restart: always
     security_opt:
       - no-new-privileges
 
   firecrawl-redis:
+    command: ['redis-server', '--bind', '0.0.0.0']
     container_name: firecrawl-redis
-    image: redis:8.6-alpine@sha256:d146f83b1e0f02fc27c26a50cee39338c736674c5959db84363e6ae3cd9e02d2
-    command: ["redis-server", "--bind", "0.0.0.0"]
-    init: true
     cpus: 1
+    image: redis:8.6-alpine@sha256:d146f83b1e0f02fc27c26a50cee39338c736674c5959db84363e6ae3cd9e02d2
+    init: true
     mem_limit: 1g
+    restart: always
     security_opt:
       - no-new-privileges
 
@@ -61,8 +63,9 @@ services:
     container_name: firecrawl-rabbitmq
     image: rabbitmq:4.3-management-alpine@sha256:1a43764bdcf116542e7c8c794adc67c79461727da16d474e9e21483fe7f716d3
     init: true
+    restart: always
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'check_running']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -73,18 +76,19 @@ services:
       - no-new-privileges
 
   firecrawl-postgres:
+    command: ['postgres', '-c', 'cron.database_name=firecrawl']
     container_name: firecrawl-postgres
     image: ghcr.io/firecrawl/nuq-postgres:latest@sha256:f9388bd25ae2e1f1d034518236f993ce236173c1d8800ce24092ea6643a95a33
-    command: ["postgres", "-c", "cron.database_name=firecrawl"]
     environment:
-      - POSTGRES_USER=${FIRECRAWL_POSTGRES_USER:-firecrawl}
-      - POSTGRES_PASSWORD=${FIRECRAWL_POSTGRES_PASSWORD:-firecrawl_password}
-      - POSTGRES_DB=${FIRECRAWL_POSTGRES_DB:-firecrawl}
+      POSTGRES_USER: ${FIRECRAWL_POSTGRES_USER:-firecrawl}
+      POSTGRES_PASSWORD: ${FIRECRAWL_POSTGRES_PASSWORD:-firecrawl_password}
+      POSTGRES_DB: ${FIRECRAWL_POSTGRES_DB:-firecrawl}
     volumes:
       - firecrawl-nuq-postgres-data:/var/lib/postgresql/data
     init: true
+    restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${FIRECRAWL_POSTGRES_USER:-firecrawl} -d ${FIRECRAWL_POSTGRES_DB:-firecrawl}"]
+      test: ['CMD', 'pg_isready', '-U', '${FIRECRAWL_POSTGRES_USER:-firecrawl}', '-d', '${FIRECRAWL_POSTGRES_DB:-firecrawl}']
       interval: 5s
       timeout: 5s
       retries: 10
