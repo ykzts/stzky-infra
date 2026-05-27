@@ -21,9 +21,6 @@ Firecrawl関連サービスのCompose設定です。
 
 - ホストポートの直接公開なし
 
-注記:
-- このディレクトリでは、composeファイル名が `compose.yaml` ではなく `compoase.yaml` です。
-
 ## ファイル
 
 - Compose定義: `compoase.yaml`
