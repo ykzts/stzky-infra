@@ -17,6 +17,12 @@
         icon: /images/icons/baserow.png
         siteMonitor: https://base.stzky.com/api/_health/
 
+    - n8n:
+        description: Workflow automation and integration.
+        href: https://flow.stzky.com
+        icon: /images/icons/n8n.ico
+        siteMonitor: https://flow.stzky.com/healthz
+
 - Infrastructure:
     - Grafana:
         description: Metrics visualization and dashboarding.
