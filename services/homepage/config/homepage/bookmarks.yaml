@@ -15,11 +15,36 @@
         - abbr: AE
           href: https://game.skport.com/endfield/sign-in
 
-- AI Chat:
+- AI Tools:
     - Gemini:
         - abbr: GM
           href: https://gemini.google.com/app
 
+    - Claude:
+        - abbr: CL
+          href: https://claude.ai
+
+    - ChatGPT:
+        - abbr: CG
+          href: https://chatgpt.com
+
     - Grok:
         - abbr: GK
-          href: https://grok.com/
+          href: https://grok.com
+
+- Social Media:
+    - GitHub:
+        - abbr: GH
+          href: https://github.com
+
+    - X:
+        - abbr: X
+          href: https://x.com
+
+    - Facebook:
+        - abbr: FB
+          href: https://www.facebook.com
+
+    - Instagram:
+        - abbr: IG
+          href: https://www.instagram.com

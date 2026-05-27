@@ -1,4 +1,4 @@
-- Services:
+- Applications:
     - Immich:
         description: Photo and video backup and management.
         href: https://photos.stzky.com
@@ -23,7 +23,7 @@
         icon: /images/icons/n8n.ico
         siteMonitor: https://flow.stzky.com/healthz
 
-- Infrastructure:
+- Monitoring:
     - Grafana:
         description: Metrics visualization and dashboarding.
         href: https://graph.stzky.com

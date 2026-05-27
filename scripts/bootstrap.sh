@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-docker network create stzky-ingress
+docker network create stzky-ingress || true
