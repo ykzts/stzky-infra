@@ -2,7 +2,7 @@ services:
   firecrawl:
     command: ['node', 'dist/src/harness.js', '--start-docker']
     container_name: firecrawl
-    image: ghcr.io/firecrawl/firecrawl:latest@sha256:109c7b3d050da14d1866715efd58f775340ceecc154735acae7c5a7f6e0c6b85
+    image: ghcr.io/firecrawl/firecrawl:latest@sha256:bf26733900d199e1fec4c869ab936109bb865684e122bd0f27752f0df77e767b
     environment:
       HOST: 0.0.0.0
       PORT: 3002
