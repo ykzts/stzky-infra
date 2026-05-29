@@ -61,7 +61,7 @@ services:
 
   firecrawl-rabbitmq:
     container_name: firecrawl-rabbitmq
-    image: rabbitmq:4.3-management-alpine@sha256:7f0e22dce6a456d963b6a96ef785fafa308c4e35838c9d64c95ba24a83058cce
+    image: rabbitmq:4.3-management-alpine@sha256:eb70bd64440624f8a7b93f619d28900865330996a3204aec97852bbe4bb77573
     init: true
     restart: always
     healthcheck:
