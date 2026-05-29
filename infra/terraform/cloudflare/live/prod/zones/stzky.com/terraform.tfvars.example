@@ -1,0 +1,11 @@
+zone_id = ""
+
+root_endpoint = {
+	root_ipv4 = "203.0.113.198"
+	root_ipv6 = "2d74:221d:18:b318:ffa:7fbb:5e14:49ad"
+}
+
+uptime_fly_endpoint = {
+	ipv4 = "66.241.124.77"
+	ipv6 = "2a09:8280:1::119:f813:0"
+}
