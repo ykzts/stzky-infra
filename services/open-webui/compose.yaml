@@ -1,8 +1,8 @@
 services:
   ovms:
     command: >
-      --source_model durgasai299792458/gemma-4-E2B-OpenVINO-INT4
-      --model_name gemma-4-e2b
+      --source_model OpenVINO/gemma-3-4b-it-int4-ov
+      --model_name gemma-3-4b
       --model_repository_path /models
       --task text_generation
       --target_device GPU
