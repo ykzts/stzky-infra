@@ -1,11 +1,11 @@
 services:
   ovms:
     command: >
-      --source_model OpenVINO/gemma-3-4b-it-int8-ov
-      --model_name gemma-3-4b
+      --source_model OpenVINO/gemma-4-E4B-it-int8-ov
+      --model_name gemma-4-e4b
       --model_repository_path /models
       --task text_generation
-      --target_device CPU
+      --target_device GPU
       --rest_port 8000
       --max_num_batched_tokens 32768
       --cache_size 8
