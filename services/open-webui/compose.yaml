@@ -2,7 +2,7 @@ services:
   ovms:
     command: >
       --source_model OpenVINO/gemma-4-31B-it-int4-ov
-      --model_name gemma-4-e4b
+      --model_name gemma-4-31b
       --model_repository_path /models
       --task text_generation
       --target_device GPU
