@@ -1,7 +1,7 @@
 services:
   ovms:
     command: >
-      --source_model OpenVINO/gemma-4-E2B-it-int4-ov
+      --source_model durgasai299792458/gemma-4-E2B-OpenVINO-INT4
       --model_name gemma-4-e2b
       --model_repository_path /models
       --task text_generation
@@ -9,7 +9,6 @@ services:
       --rest_port 8000
       --max_num_batched_tokens 32768
       --cache_size 24
-      --overwrite_models
     container_name: ovms
     devices:
       - /dev/dri:/dev/dri
