@@ -9,6 +9,7 @@ services:
       --rest_port 8000
       --max_num_batched_tokens 32768
       --cache_size 24
+      --overwrite_models
     container_name: ovms
     devices:
       - /dev/dri:/dev/dri
