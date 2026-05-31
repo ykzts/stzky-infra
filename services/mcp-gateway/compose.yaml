@@ -1,7 +1,7 @@
 services:
   gateway:
     container_name: mcp-gateway
-    image: docker/mcp-gateway:v0.42.1@sha256:582c83ba9b6032a6f495d0e98e7ff6442eebe89f7c476fa7672ce115911c99c5
+    image: docker/mcp-gateway:v0.42.2@sha256:8d1c43858fd108916a5b228e9d6e587e2c1a2c74c7519b8e800513bd91fe0393
     networks:
       - default
       - stzky-ingress
