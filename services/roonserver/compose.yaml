@@ -1,0 +1,15 @@
+services:
+  roonserver:
+    container_name: roonserver
+    environment:
+      ROON_INSTALL_BRANCH: production
+    image: ghcr.io/roonlabs/roonserver:1.0.7@sha256:8deef4b11e04b869b0f33d1a216f27a0cd83106f1548a4dc3c666300f3be4652
+    network_mode: host
+    restart: always
+    volumes:
+      - roon-data:/Roon
+      - ${ROON_SERVER_MUSIC_DIR}:/Music
+      - ${ROON_SERVER_BACKUP_DIR}:/RoonBackups
+
+volumes:
+  roon-data:
