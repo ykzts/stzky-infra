@@ -1,15 +1,11 @@
 local.file_match "roonserver_logs" {
   path_targets = [
-    {
-      "__path__"     = "/Roon/database/RoonServer/Logs/RoonServer_log*.txt",
-      "job"          = "roon-server",
-      "service_name" = "roonserver",
-    },
+    {__path__ = "/Roon/database/RoonServer/Logs/RoonServer_log*.txt"},
   ]
 }
 
 loki.source.file "roonserver_files" {
-  targets    = local.file_match "roonserver_logs".output
+  targets    = local.file_match.roonserver_logs.targets
   forward_to = [loki.write.ingress_loki.receiver]
 }
 
