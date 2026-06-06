@@ -1,0 +1,20 @@
+local.file_match "roonserver_logs" {
+  path_targets = [
+    {
+      "__path__"     = "/Roon/database/RoonServer/Logs/RoonServer_log*.txt",
+      "job"          = "roon-server",
+      "service_name" = "roonserver",
+    },
+  ]
+}
+
+loki.source.file "roonserver_files" {
+  targets    = local.file_match "roonserver_logs".output
+  forward_to = [loki.write.ingress_loki.receiver]
+}
+
+loki.write "ingress_loki" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
