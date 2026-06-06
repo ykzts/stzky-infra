@@ -28,3 +28,7 @@ services:
 
 volumes:
   roon-data:
+
+networks:
+  stzky-ingress:
+    external: true
