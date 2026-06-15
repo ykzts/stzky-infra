@@ -5,3 +5,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    ports: []
+    volumes:
+      - ./config/caddy/Caddyfile.test:/etc/caddy/Caddyfile:ro
