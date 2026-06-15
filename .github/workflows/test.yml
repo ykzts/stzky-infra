@@ -20,8 +20,13 @@ jobs:
       matrix:
         service:
           - caddy
+          - epub-web
+          - firecrawl
           - grafana
+          - homepage
           - immich
+          - mcp-gateway
+          - n8n
 
     steps:
       - name: Checkout repository
@@ -30,32 +35,36 @@ jobs:
       - name: Bootstrap environment
         run: ./scripts/bootstrap.sh
 
-      - name: Create .env file for ${{ matrix.service }}
+      - name: Prepare host directories for ${{ matrix.service }}
         working-directory: services/${{ matrix.service }}
         run: |
-          # Create a minimal .env file with dummy values for testing
+          # Some services use bind mounts to fixed absolute paths on the host
+          # (outside the project tree). These directories must exist before `up`.
           case "${{ matrix.service }}" in
-            caddy)
-              cp .env.test .env
-              ;;
             grafana)
-              # Create required directories for grafana
               sudo mkdir -p /opt/grafana/{postgres,grafana,prometheus,redis}
               sudo chmod 777 /opt/grafana/{postgres,grafana,prometheus,redis}
-              cp .env.test .env
               ;;
             immich)
               mkdir -p /tmp/immich-db /tmp/immich-upload
-              cp .env.test .env
               ;;
           esac
 
       - name: Setup compose files
         working-directory: services/${{ matrix.service }}
         run: |
-          # Use compose.test.yaml if it exists
+          # Use compose.test.yaml if it exists (for test-specific overrides such as
+          # healthchecks, ports, profiles, or volumes).
           if [ -f compose.test.yaml ]; then
             echo "COMPOSE_FILE=compose.yaml:compose.test.yaml" >> $GITHUB_ENV
+          fi
+
+          # Use .env.test for Compose variable interpolation if present.
+          # This is set via COMPOSE_ENV_FILES (symmetric to COMPOSE_FILE) so that
+          # all subsequent `docker compose` commands in the job inherit it.
+          # No need to cp .env.test to .env anymore.
+          if [ -f .env.test ]; then
+            echo "COMPOSE_ENV_FILES=.env.test" >> $GITHUB_ENV
           fi
 
       - name: Start Docker Compose
