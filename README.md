@@ -1,4 +1,4 @@
-# stzky-compose
+# stzky-infra
 
 山岸和利の個人宅に配置しているサーバーで動かすための、セルフホストサービス向けのDocker Compose設定ファイル集です。
 
