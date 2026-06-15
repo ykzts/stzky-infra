@@ -7,8 +7,83 @@ on:
       - main
 
 jobs:
+  detect-changes:
+    name: Detect changes
+    runs-on: ubicloud-standard-2
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed paths
+        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4.0.1
+        id: filter
+        with:
+          filters: |
+            caddy:
+              - 'services/caddy/**'
+            epub-web:
+              - 'services/epub-web/**'
+            firecrawl:
+              - 'services/firecrawl/**'
+            grafana:
+              - 'services/grafana/**'
+            homepage:
+              - 'services/homepage/**'
+            immich:
+              - 'services/immich/**'
+            mcp-gateway:
+              - 'services/mcp-gateway/**'
+            n8n:
+              - 'services/n8n/**'
+            shared:
+              - 'scripts/**'
+              - '.github/workflows/test.yml'
+              - '.devcontainer/**'
+
+      - name: Set test matrix
+        id: set-matrix
+        env:
+          FILTER_CADDY: ${{ steps.filter.outputs.caddy }}
+          FILTER_EPUB_WEB: ${{ steps.filter.outputs.epub-web }}
+          FILTER_FIRECRAWL: ${{ steps.filter.outputs.firecrawl }}
+          FILTER_GRAFANA: ${{ steps.filter.outputs.grafana }}
+          FILTER_HOMEPAGE: ${{ steps.filter.outputs.homepage }}
+          FILTER_IMMICH: ${{ steps.filter.outputs.immich }}
+          FILTER_MCP_GATEWAY: ${{ steps.filter.outputs.mcp-gateway }}
+          FILTER_N8N: ${{ steps.filter.outputs.n8n }}
+          FILTER_SHARED: ${{ steps.filter.outputs.shared }}
+        run: |
+          if [ "$FILTER_SHARED" = "true" ]; then
+            matrix='["caddy","epub-web","firecrawl","grafana","homepage","immich","mcp-gateway","n8n"]'
+          else
+            selected=()
+            [ "$FILTER_CADDY" = "true" ] && selected+=(caddy)
+            [ "$FILTER_EPUB_WEB" = "true" ] && selected+=(epub-web)
+            [ "$FILTER_FIRECRAWL" = "true" ] && selected+=(firecrawl)
+            [ "$FILTER_GRAFANA" = "true" ] && selected+=(grafana)
+            [ "$FILTER_HOMEPAGE" = "true" ] && selected+=(homepage)
+            [ "$FILTER_IMMICH" = "true" ] && selected+=(immich)
+            [ "$FILTER_MCP_GATEWAY" = "true" ] && selected+=(mcp-gateway)
+            [ "$FILTER_N8N" = "true" ] && selected+=(n8n)
+
+            if [ ${#selected[@]} -eq 0 ]; then
+              matrix='[]'
+            else
+              matrix=$(printf '%s\n' "${selected[@]}" | jq -R . | jq -sc .)
+            fi
+          fi
+
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "Test matrix: $matrix"
+
   test-compose:
     name: Test ${{ matrix.service }}
+    needs: detect-changes
+    if: needs.detect-changes.outputs.matrix != '[]'
     runs-on: ubicloud-standard-2
     timeout-minutes: 15
     concurrency:
@@ -18,15 +93,7 @@ jobs:
       # Don't cancel all jobs if one fails - we want to test all services
       fail-fast: false
       matrix:
-        service:
-          - caddy
-          - epub-web
-          - firecrawl
-          - grafana
-          - homepage
-          - immich
-          - mcp-gateway
-          - n8n
+        service: ${{ fromJSON(needs.detect-changes.outputs.matrix) }}
 
     steps:
       - name: Checkout repository
@@ -154,3 +221,23 @@ jobs:
         working-directory: services/${{ matrix.service }}
         run: |-
           docker compose down -v
+
+  compose-tests:
+    name: Compose tests
+    needs: [detect-changes, test-compose]
+    if: always()
+    runs-on: ubicloud-standard-2
+    steps:
+      - name: Aggregate compose test results
+        run: |-
+          if [[ "${{ needs.detect-changes.result }}" == "failure" || "${{ needs.detect-changes.result }}" == "cancelled" ]]; then
+            echo "detect-changes job failed or was cancelled"
+            exit 1
+          fi
+
+          if [[ "${{ needs.test-compose.result }}" == "failure" || "${{ needs.test-compose.result }}" == "cancelled" ]]; then
+            echo "test-compose job failed or was cancelled"
+            exit 1
+          fi
+
+          echo "Compose tests passed"
