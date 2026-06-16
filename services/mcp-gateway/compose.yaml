@@ -13,6 +13,12 @@ services:
     depends_on:
       - mcp-firecrawl
       - mcp-grafana
+    healthcheck:
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      test: ['CMD', 'wget', '--spider', '-q', 'http://127.0.0.1:8811/healthz']
+      timeout: 5s
     restart: always
 
   mcp-firecrawl:
@@ -22,6 +28,11 @@ services:
     environment:
       FIRECRAWL_API_URL: ${FIRECRAWL_API_URL:-http://firecrawl:3002}
       FIRECRAWL_API_KEY: ${FIRECRAWL_API_KEY:-}
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test: ['CMD', 'node', '-e', 'process.kill(1,0)']
+      timeout: 5s
     networks:
       - default
       - stzky-ingress
@@ -48,6 +59,11 @@ services:
     environment:
       GRAFANA_API_URL: ${GRAFANA_API_URL:-http://grafana:3000}
       GRAFANA_SERVICE_ACCOUNT_TOKEN: ${GRAFANA_SERVICE_ACCOUNT_TOKEN:-}
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test: ['CMD', 'kill', '-0', '1']
+      timeout: 5s
     networks:
       - default
       - stzky-ingress
