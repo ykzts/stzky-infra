@@ -26,4 +26,5 @@ Baserow関連サービスのCompose設定です。
 ## ファイル
 
 - Compose定義: `compose.yaml`
+- テスト用環境変数: `.env.test`（`BASEROW_JWT_SIGNING_KEY`、`SECRET_KEY` など CI 用のダミー値）
 
