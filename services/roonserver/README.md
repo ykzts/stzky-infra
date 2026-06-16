@@ -11,12 +11,15 @@ Roon Server関連サービスのCompose設定です。
 - `roonserver`
 - `alloy`
 
-## 必須環境変数
+## 環境変数
 
-`.env` ファイルに以下を設定してください。
+`.env.example` をコピーして `.env` を作成し、各変数の説明に従って値を設定してください。
 
-- `ROON_SERVER_MUSIC_DIR`: 音楽ライブラリのホスト上のパス（コンテナ内 `/Music` にマウント）
-- `ROON_SERVER_BACKUP_DIR`: Roonバックアップのホスト上のパス（コンテナ内 `/RoonBackups` にマウント）
+```bash
+cp .env.example .env
+```
+
+必須・任意の区別およびデフォルト値は `.env.example` 内のコメントを参照してください。
 
 ## 公開ホスト
 
