@@ -118,21 +118,7 @@ jobs:
           esac
 
       - name: Setup compose files
-        working-directory: services/${{ matrix.service }}
-        run: |
-          # Use compose.test.yaml if it exists (for test-specific overrides such as
-          # healthchecks, ports, profiles, or volumes).
-          if [ -f compose.test.yaml ]; then
-            echo "COMPOSE_FILE=compose.yaml:compose.test.yaml" >> $GITHUB_ENV
-          fi
-
-          # Use .env.test for Compose variable interpolation if present.
-          # This is set via COMPOSE_ENV_FILES (symmetric to COMPOSE_FILE) so that
-          # all subsequent `docker compose` commands in the job inherit it.
-          # No need to cp .env.test to .env anymore.
-          if [ -f .env.test ]; then
-            echo "COMPOSE_ENV_FILES=.env.test" >> $GITHUB_ENV
-          fi
+        run: ./scripts/setup-compose-test-env.sh services/${{ matrix.service }}
 
       - name: Start Docker Compose
         working-directory: services/${{ matrix.service }}
