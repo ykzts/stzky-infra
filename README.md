@@ -20,6 +20,7 @@
 - [MCP Gateway](services/mcp-gateway/README.md)
 - [n8n](services/n8n/README.md)
 - [Open WebUI](services/open-webui/README.md)
+- [Roon Server](services/roonserver/README.md)
 
 ## 使い方
 
