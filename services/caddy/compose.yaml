@@ -11,6 +11,11 @@ services:
       MCP_ACCESS_TOKEN: ${MCP_ACCESS_TOKEN}
       PROMETHEUS_HASHED_PASSWORD: ${PROMETHEUS_HASHED_PASSWORD}
       PROMETHEUS_AUTH_USERNAME: ${ALLOY_PROMETHEUS_USERNAME}
+    healthcheck:
+      interval: 10s
+      retries: 5
+      test: ['CMD', 'caddy', 'version']
+      timeout: 5s
     image: ghcr.io/ykzts/caddy
     networks:
       - default

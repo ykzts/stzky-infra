@@ -27,6 +27,12 @@ services:
       N8N_SMTP_USER: ${N8N_SMTP_USER:-}
       VUE_APP_URL_BASE_API: https://flow.stzky.com
       WEBHOOK_URL: https://flow.stzky.com
+    healthcheck:
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      test: ['CMD', 'wget', '--spider', '-q', '--tries=1', 'http://127.0.0.1:5678/healthz']
+      timeout: 5s
     networks:
       - default
       - stzky-ingress
