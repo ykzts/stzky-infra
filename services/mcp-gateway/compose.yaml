@@ -17,7 +17,7 @@ services:
       interval: 10s
       retries: 5
       start_period: 30s
-      test: ['CMD', 'wget', '--spider', '-q', 'http://127.0.0.1:8811/healthz']
+      test: ['CMD', 'wget', '--spider', '-q', 'http://127.0.0.1:8811/health']
       timeout: 5s
     restart: always
 
@@ -62,7 +62,7 @@ services:
     healthcheck:
       interval: 10s
       retries: 5
-      test: ['CMD', 'kill', '-0', '1']
+      test: ['CMD', 'sh', '-c', 'kill -0 1']
       timeout: 5s
     networks:
       - default
