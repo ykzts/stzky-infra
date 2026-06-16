@@ -17,7 +17,7 @@ services:
       interval: 10s
       retries: 5
       start_period: 30s
-      test: ['CMD', 'wget', '--spider', '-q', 'http://127.0.0.1:8811/health']
+      test: ['CMD', 'wget', '--spider', '-q', '--tries=1', 'http://127.0.0.1:8811/health']
       timeout: 5s
     restart: always
 

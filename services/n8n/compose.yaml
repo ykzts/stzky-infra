@@ -31,7 +31,7 @@ services:
       interval: 10s
       retries: 5
       start_period: 30s
-      test: ['CMD', 'wget', '--spider', '-q', 'http://127.0.0.1:5678/healthz']
+      test: ['CMD', 'wget', '--spider', '-q', '--tries=1', 'http://127.0.0.1:5678/healthz']
       timeout: 5s
     networks:
       - default
