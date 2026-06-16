@@ -52,8 +52,8 @@ jobs:
         working-directory: services/${{ matrix.service }}
         run: docker compose config --quiet
 
-  lint:
-    name: Lint
+  lint-checks:
+    name: Lint checks
     needs: [yamlfmt, compose-config]
     if: always()
     runs-on: ubicloud-standard-2
@@ -70,4 +70,4 @@ jobs:
             exit 1
           fi
 
-          echo "Lint passed"
+          echo "Lint checks passed"
