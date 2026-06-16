@@ -46,15 +46,7 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
       - name: Setup compose files
-        working-directory: services/${{ matrix.service }}
-        run: |
-          if [ -f compose.test.yaml ]; then
-            echo "COMPOSE_FILE=compose.yaml:compose.test.yaml" >> $GITHUB_ENV
-          fi
-
-          if [ -f .env.test ]; then
-            echo "COMPOSE_ENV_FILES=.env.test" >> $GITHUB_ENV
-          fi
+        run: ./scripts/setup-compose-test-env.sh services/${{ matrix.service }}
 
       - name: Validate compose configuration
         working-directory: services/${{ matrix.service }}
