@@ -23,6 +23,8 @@ jobs:
         id: filter
         with:
           filters: |
+            baserow:
+              - 'services/baserow/**'
             caddy:
               - 'services/caddy/**'
             epub-web:
@@ -47,6 +49,7 @@ jobs:
       - name: Set test matrix
         id: set-matrix
         env:
+          FILTER_BASEROW: ${{ steps.filter.outputs.baserow }}
           FILTER_CADDY: ${{ steps.filter.outputs.caddy }}
           FILTER_EPUB_WEB: ${{ steps.filter.outputs.epub-web }}
           FILTER_FIRECRAWL: ${{ steps.filter.outputs.firecrawl }}
@@ -58,9 +61,10 @@ jobs:
           FILTER_SHARED: ${{ steps.filter.outputs.shared }}
         run: |
           if [ "$FILTER_SHARED" = "true" ]; then
-            matrix='["caddy","epub-web","firecrawl","grafana","homepage","immich","mcp-gateway","n8n"]'
+            matrix='["baserow","caddy","epub-web","firecrawl","grafana","homepage","immich","mcp-gateway","n8n"]'
           else
             selected=()
+            [ "$FILTER_BASEROW" = "true" ] && selected+=(baserow)
             [ "$FILTER_CADDY" = "true" ] && selected+=(caddy)
             [ "$FILTER_EPUB_WEB" = "true" ] && selected+=(epub-web)
             [ "$FILTER_FIRECRAWL" = "true" ] && selected+=(firecrawl)
