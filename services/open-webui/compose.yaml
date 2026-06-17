@@ -1,7 +1,7 @@
 services:
   ovms:
     command: >
-      --source_model OpenVINO/Qwen3.5-9B-int4-ov
+      --source_model OpenVINO/Qwen3.5-9B-int8-ov
       --model_name qwen3.5-9b
       --model_repository_path /models
       --task text_generation
