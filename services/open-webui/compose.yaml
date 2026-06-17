@@ -8,7 +8,7 @@ services:
       --target_device GPU
       --rest_port 8000
       --max_num_batched_tokens 32768
-      --cache_size 8
+      --cache_size 16
     container_name: ovms
     devices:
       - /dev/dri:/dev/dri
@@ -18,7 +18,7 @@ services:
       - '993'
     image: openvino/model_server:2026.2-gpu@sha256:fdc34725b35d79cde23cff1967f90efb40237b7cf5545a70460209056f3da733
     restart: always
-    shm_size: 16gb
+    shm_size: 24gb
     volumes:
       - ovms-models:/models
 
