@@ -51,7 +51,7 @@ services:
       retries: 5
       test: ['CMD', 'pg_isready', '-U', '$$POSTGRES_USER', '-d', '$$POSTGRES_DB']
       timeout: 5s
-    image: postgres:18.4-alpine3.23@sha256:96d56f7f57c6aacd1fcb908bc83b345ec5f83231ee486dd66a1baadce274db88
+    image: postgres:18.4-alpine3.23@sha256:c14378294b5806d846c5e659143ab28c04b7000e130deb030a64bd65c854ffcc
     restart: always
     volumes:
       - pg_data:/var/lib/postgresql
