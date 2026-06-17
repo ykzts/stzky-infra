@@ -2,7 +2,7 @@ services:
   firecrawl:
     command: ['node', 'dist/src/harness.js', '--start-docker']
     container_name: firecrawl
-    image: ghcr.io/firecrawl/firecrawl:latest@sha256:44f8e44e5cb7427c6e5759ec8f88950dfac2b4ee042ad00987303f53e69b96bc
+    image: ghcr.io/firecrawl/firecrawl:2.10.22@sha256:44f8e44e5cb7427c6e5759ec8f88950dfac2b4ee042ad00987303f53e69b96bc
     environment:
       HOST: 0.0.0.0
       PORT: 3002
@@ -78,7 +78,7 @@ services:
 
   firecrawl-rabbitmq:
     container_name: firecrawl-rabbitmq
-    image: rabbitmq:4.3-management-alpine@sha256:c1a9d43038bb6151877e84bb6a488493158ad5c1f21dd5d1872f347caa8053b3
+    image: rabbitmq:4.3.2-management-alpine@sha256:5440676d64d5819cd152aaf8cc2297133d56f223c7a170c6b8e60d961f526a8b
     init: true
     restart: always
     healthcheck:
