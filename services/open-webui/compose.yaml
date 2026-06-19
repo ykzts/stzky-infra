@@ -1,14 +1,14 @@
 services:
   ovms:
     command: >
-      --source_model OpenVINO/Qwen3.5-9B-int8-ov
+      --source_model OpenVINO/Qwen3.5-9B-int4-ov
       --model_name qwen3.5-9b
       --model_repository_path /models
       --task text_generation
       --target_device GPU
       --rest_port 8000
       --max_num_batched_tokens 32768
-      --cache_size 16
+      --cache_size 8
     container_name: ovms
     devices:
       - /dev/dri:/dev/dri
@@ -18,7 +18,7 @@ services:
       - '993'
     image: openvino/model_server:2026.2-gpu@sha256:fdc34725b35d79cde23cff1967f90efb40237b7cf5545a70460209056f3da733
     restart: always
-    shm_size: 24gb
+    shm_size: 16gb
     volumes:
       - ovms-models:/models
 
