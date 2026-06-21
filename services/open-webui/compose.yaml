@@ -24,7 +24,7 @@ services:
 
   db:
     container_name: open-webui-db
-    image: pgvector/pgvector:0.8.2-pg18-trixie@sha256:b7337db8fe39d12fe8ecb0003c72680f24479813a744b43154eee6f2eab5a5f3
+    image: pgvector/pgvector:0.8.3-pg18-trixie@sha256:6232c5ea178707f278d060b51747c30f310164595674e95d5f9d100f4a48b56c
     environment:
       POSTGRES_USER: webui
       POSTGRES_PASSWORD: ${DB_PASSWORD}
