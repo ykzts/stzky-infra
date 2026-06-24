@@ -48,7 +48,7 @@ services:
       POSTGRES_USER: ${GF_DATABASE_USER}
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'postgres']
-    image: postgres:17.10-bookworm@sha256:517f51201e18a12503a42945ef0b434d65a5297d72a4180f11905d905fcc5612
+    image: postgres:17.10-bookworm@sha256:17b6c778de50f4bb9a878c36e736110fbcd9b7020377d6fdfdf20f7c0347e40a
     restart: always
     volumes:
       - /opt/grafana/postgres:/var/lib/postgresql/data
