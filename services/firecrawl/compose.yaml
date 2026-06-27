@@ -44,7 +44,7 @@ services:
 
   firecrawl-playwright:
     container_name: firecrawl-playwright
-    image: ghcr.io/firecrawl/playwright-service:latest@sha256:1f6eba6403207d501a63d9b1d4685b6316b4fc7968fe64a5839ab1bfec9d1c14
+    image: ghcr.io/firecrawl/playwright-service:latest@sha256:6359b0d9070f27400b4a9b615509be06919e40121fc1fdc42d4efeddf02653d2
     environment:
       PORT: 3000
     cpus: 1
@@ -64,7 +64,7 @@ services:
     command: ['redis-server', '--bind', '0.0.0.0']
     container_name: firecrawl-redis
     cpus: 1
-    image: redis:8.8-alpine@sha256:09160599abd229764c0fb44cb6be640294e1d360a54b19985ab4843dcf2d90f1
+    image: redis:8.8-alpine@sha256:9d317178eceac8454a2284a9e6df2466b93c745529947f0cd42a0fa9609d7005
     healthcheck:
       interval: 5s
       retries: 5
@@ -78,7 +78,7 @@ services:
 
   firecrawl-rabbitmq:
     container_name: firecrawl-rabbitmq
-    image: rabbitmq:4.3.2-management-alpine@sha256:a2b8ca223e4b6b91ce6dac5a87e8d4551974a7d8dc8c919d333b757507966ffd
+    image: rabbitmq:4.3.2-management-alpine@sha256:e6862a7d804c80fc72d2265aed3b725fd9a6afd330b735363eeecc4b6ec4dd3d
     init: true
     restart: always
     healthcheck:
