@@ -12,7 +12,7 @@
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:3.0.1": {
+    "ghcr.io/devcontainers/features/docker-in-docker:3.1.0": {
       "moby": false,
       "version": "latest"
     },
