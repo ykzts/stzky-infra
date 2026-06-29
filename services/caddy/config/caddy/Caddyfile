@@ -101,15 +101,7 @@ stzky.com, *.stzky.com {
 
 	@mcp host mcp.stzky.com
 	handle @mcp {
-		@unauthorized {
-			not header_regexp auth Authorization `^(?i:Bearer)\s+{$MCP_ACCESS_TOKEN}$`
-		}
-
-		handle @unauthorized {
-			header Content-Type application/json
-			respond `{"error": "Unauthorized", "message": "Valid token required"}` 401
-		}
-
+		encode zstd gzip
 		reverse_proxy gateway:8811
 	}
 
