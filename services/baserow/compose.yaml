@@ -110,7 +110,7 @@ services:
       interval: 10s
       retries: 10
       test: ['CMD', 'su', 'postgres', '-c', 'pg_isready -U $$POSTGRES_USER']
-    image: pgvector/pgvector:0.8.4-pg18-trixie@sha256:dc8631aeee036a59d054c28d29ddb15536caa0c89a96f548fa944774a50af973
+    image: pgvector/pgvector:0.8.5-pg18-trixie@sha256:9d2e61c7352b9e9f4798df5fd9a498f043f4cda1cdacc707de3d198650f4321e
     networks:
       - local
     restart: always
