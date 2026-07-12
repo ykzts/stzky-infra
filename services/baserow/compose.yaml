@@ -34,7 +34,7 @@ services:
       - redis
     environment:
       !!merge <<: *backend-variables
-    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
+    image: baserow/backend:2.3.0@sha256:dd35ed6ae290736a8706f61c0320fdc9a5505b34e08404caa16c77880847cbce
     networks:
       - local
       - stzky-ingress
@@ -64,7 +64,7 @@ services:
       !!merge <<: *backend-variables
     healthcheck:
       test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-worker-healthcheck']
-    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
+    image: baserow/backend:2.3.0@sha256:dd35ed6ae290736a8706f61c0320fdc9a5505b34e08404caa16c77880847cbce
     networks:
       - local
     restart: always
@@ -79,7 +79,7 @@ services:
       !!merge <<: *backend-variables
     healthcheck:
       test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-exportworker-healthcheck']
-    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
+    image: baserow/backend:2.3.0@sha256:dd35ed6ae290736a8706f61c0320fdc9a5505b34e08404caa16c77880847cbce
     networks:
       - local
     restart: always
@@ -94,7 +94,7 @@ services:
       !!merge <<: *backend-variables
     healthcheck:
       test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-beat-healthcheck']
-    image: baserow/backend:2.2.2@sha256:78a0bba005145d73cf7f1dfeb273e76d61ea11773bdd4b74f24823fe0e24c1d0
+    image: baserow/backend:2.3.0@sha256:dd35ed6ae290736a8706f61c0320fdc9a5505b34e08404caa16c77880847cbce
     networks:
       - local
     restart: always
