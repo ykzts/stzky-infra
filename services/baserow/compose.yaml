@@ -48,7 +48,7 @@ services:
       BASEROW_PUBLIC_URL: https://base.stzky.com
       PRIVATE_BACKEND_URL: http://backend:8000
       PUBLIC_BACKEND_URL: https://base.stzky.com
-    image: baserow/web-frontend:2.3.1@sha256:346021a86aa06ba86f45aa05a995ea5162b2d5fdd3ae2426e0daf641670b4eff
+    image: baserow/web-frontend:2.3.2@sha256:d616a12e66d6e172d504748c18400f1744fbc75d84b1bad44e41220483cf2591
     networks:
       - local
       - stzky-ingress
