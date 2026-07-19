@@ -1,7 +1,7 @@
 services:
   gateway:
     container_name: mcp-gateway
-    image: docker/mcp-gateway:v0.43.1@sha256:a26c7367bd16e3a328a181af3b5e03f38ff131787c2d2077bfee188eb808b7dc
+    image: docker/mcp-gateway:v0.43.3@sha256:e3ee13818cb067a506c5e9acdb2bb4fe0e601caef7d116fc329755782f1a3cfa
     environment:
       MCP_GATEWAY_AUTH_TOKEN: ${MCP_GATEWAY_AUTH_TOKEN:-}
     networks:
