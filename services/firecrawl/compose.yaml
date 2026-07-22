@@ -44,7 +44,7 @@ services:
 
   firecrawl-playwright:
     container_name: firecrawl-playwright
-    image: ghcr.io/firecrawl/playwright-service:latest@sha256:c2cb9d7e982f9ddaf7902ec79da1e63961ae3760f315cddaa161200a7937162b
+    image: ghcr.io/firecrawl/playwright-service:latest@sha256:8c50add7293201e575110e6c7489fa383a9dfc46f168936526a458e06ffc5c28
     environment:
       PORT: 3000
     cpus: 1
