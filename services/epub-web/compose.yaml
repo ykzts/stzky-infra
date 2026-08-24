@@ -10,7 +10,7 @@ services:
       EPUB_WEB_WORKERS: 8
       EPUB_WEB_REQUEST_TIMEOUT: 90s
       EPUB_WEB_SHUTDOWN_TIMEOUT: 15s
-    image: ghcr.io/publira/epub-web:1.2.3@sha256:94837bde91c4cca1902733d1cb4f08e1bd871da4066874c8c2317ee2e5f7fe62
+    image: ghcr.io/publira/epub-web:1.2.5@sha256:31dd8c3b3dbc199245489e44b35db916730fd4a629e1d87a81aaf1d578a282ef
     networks:
       - default
       - stzky-ingress
