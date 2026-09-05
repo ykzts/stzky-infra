@@ -140,6 +140,13 @@ epub.ykzts.com {
 	import json-log
 
 	encode zstd gzip
+	redir https://epub.publira.dev{uri} 301
+}
+
+epub.publira.dev {
+	import json-log
+
+	encode zstd gzip
 	reverse_proxy epub-web:8080 {
 		transport http {
 			versions h2c 2
