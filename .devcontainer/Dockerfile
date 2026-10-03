@@ -13,5 +13,6 @@ RUN \
     && rm -f yamlfmt yamlfmt.tar.gz; \
   fi
 
-# Pre-create the Claude Code config directory so the mounted volume is owned by vscode
-RUN install -d -o vscode -g vscode /home/vscode/.claude
+# Pre-create the Claude Code and GitHub CLI config directories so the mounted volumes are owned by vscode
+RUN install -d -o vscode -g vscode /home/vscode/.claude /home/vscode/.config/gh \
+  && chown -R vscode:vscode /home/vscode/.config

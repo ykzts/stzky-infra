@@ -28,7 +28,8 @@
   },
   "mounts": [
     "source=${localWorkspaceFolder}/.devcontainer/daemon.json,target=/etc/docker/daemon.json,type=bind,readonly",
-    "source=stzky-infra-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
+    "source=stzky-infra-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+    "source=stzky-infra-gh-config-${devcontainerId},target=/home/vscode/.config/gh,type=volume"
   ],
   "name": "stzky infra",
   "postCreateCommand": "./scripts/bootstrap.sh",
