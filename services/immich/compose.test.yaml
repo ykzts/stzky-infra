@@ -1,7 +1,7 @@
 services:
   database:
     healthcheck:
-      test: ['CMD', 'pg_isready', '-U', 'postgres']
+      test: ['CMD', 'pg_isready', '-U', '${DB_USERNAME}', '-d', '${DB_DATABASE_NAME}']
       interval: 10s
       timeout: 5s
       retries: 5
