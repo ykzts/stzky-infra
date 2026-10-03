@@ -153,3 +153,7 @@ epub.publira.dev {
 		}
 	}
 }
+
+:2020 {
+	metrics
+}
