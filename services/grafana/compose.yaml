@@ -80,7 +80,7 @@ services:
       GF_SMTP_FROM_NAME: ${GF_SMTP_FROM_NAME}
       GF_SMTP_HOST: ${GF_SMTP_HOST}
       GF_SMTP_PASSWORD: ${GF_SMTP_PASSWORD}
-      GF_SMTP_USER: ${GF_SMTP_FROM_NAME}
+      GF_SMTP_USER: ${GF_SMTP_USER:-resend}
       GF_SNAPSHOTS_EXTERNAL_ENABLED: false
       GF_USERS_DEFAULT_THEME: system
     healthcheck:
