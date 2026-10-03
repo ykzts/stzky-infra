@@ -1,0 +1,55 @@
+modules:
+  immich_statistics:
+    http_client_config:
+      http_headers:
+        x-api-key:
+          files: [/run/secrets/immich_api_key]
+    metrics:
+      - name: immich_assets
+        help: Number of assets in Immich.
+        labels:
+          type: photo
+        path: '{.photos}'
+        valuetype: gauge
+      - name: immich_assets
+        help: Number of assets in Immich.
+        labels:
+          type: video
+        path: '{.videos}'
+        valuetype: gauge
+      - name: immich_usage_bytes
+        help: Storage used by assets in Immich, in bytes.
+        labels:
+          type: photo
+        path: '{.usagePhotos}'
+        valuetype: gauge
+      - name: immich_usage_bytes
+        help: Storage used by assets in Immich, in bytes.
+        labels:
+          type: video
+        path: '{.usageVideos}'
+        valuetype: gauge
+      - name: immich_user
+        help: Per-user asset statistics in Immich.
+        labels:
+          type: photo
+          user: '{.userName}'
+          user_id: '{.userId}'
+        path: '{.usageByUser[*]}'
+        type: object
+        values:
+          assets: '{.photos}'
+          usage_bytes: '{.usagePhotos}'
+        valuetype: gauge
+      - name: immich_user
+        help: Per-user asset statistics in Immich.
+        labels:
+          type: video
+          user: '{.userName}'
+          user_id: '{.userId}'
+        path: '{.usageByUser[*]}'
+        type: object
+        values:
+          assets: '{.videos}'
+          usage_bytes: '{.usageVideos}'
+        valuetype: gauge
