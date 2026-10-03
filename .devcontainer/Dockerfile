@@ -12,3 +12,6 @@ RUN \
     && install yamlfmt /usr/local/bin/yamlfmt \
     && rm -f yamlfmt yamlfmt.tar.gz; \
   fi
+
+# Pre-create the Claude Code config directory so the mounted volume is owned by vscode
+RUN install -d -o vscode -g vscode /home/vscode/.claude
