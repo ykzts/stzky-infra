@@ -164,9 +164,14 @@ services:
       - /opt/grafana/redis:/data
 
   snmp-exporter:
+    command:
+      - --config.file=/etc/snmp_exporter/snmp.yml
+      - --config.file=/etc/snmp_exporter/if_traffic.yml
     container_name: snmp_exporter
     image: prom/snmp-exporter:v0.30.1@sha256:e5fd5e8b43ace6c088fe9bf0b37b7fff0e04380bee352be7ec41b853a4dd5859
     restart: always
+    volumes:
+      - ./config/snmp-exporter/if_traffic.yml:/etc/snmp_exporter/if_traffic.yml:ro
 
 networks:
   stzky-ingress:

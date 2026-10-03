@@ -1,0 +1,16 @@
+modules:
+  if_traffic:
+    walk:
+      - ifDescr
+      - ifOperStatus
+      - ifHighSpeed
+      - ifHCInOctets
+      - ifHCOutOctets
+      - ifInErrors
+      - ifOutErrors
+    lookups:
+      - source_indexes: [ifIndex]
+        lookup: ifDescr
+    overrides:
+      ifDescr:
+        ignore: true
