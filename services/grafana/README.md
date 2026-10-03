@@ -68,14 +68,12 @@ yamlfmt if_traffic.yml
 | --- | --- | --- |
 | `immich_assets` | `type` (`photo` / `video`) | アセット数 |
 | `immich_usage_bytes` | `type` | 使用容量 (バイト) |
-| `immich_user_assets` | `type`, `user`, `user_id` | ユーザーごとのアセット数 |
-| `immich_user_usage_bytes` | `type`, `user`, `user_id` | ユーザーごとの使用容量 (バイト) |
 
 合計は `sum without (type) (immich_usage_bytes)` のように求める。取得間隔が Prometheus のルックバック (5 分) と同じなので、パネルでは `last_over_time(immich_assets[10m])` のように直近の値を使うと欠けにくい。
 
 API キーは `.env` の `IMMICH_STATISTICS_API_KEY` に設定する。Compose の secret として json-exporter の `/run/secrets/immich_api_key` に渡され、`x-api-key` ヘッダーとして送られる。キーは Immich の管理者ユーザーで Account Settings → API Keys から作成し、権限は `server.statistics` だけを付与する。
 
-ユーザーごとのクォータ (`quotaSizeInBytes`) は未設定のとき `null` になり、json-exporter の JSONPath では除外できないため取得していない。
+レスポンスにはユーザーごとの内訳 (`usageByUser`) も含まれるが、ユーザー名などの個人情報を Prometheus に長期保存しないよう取得していない。
 
 ## ファイル
 
