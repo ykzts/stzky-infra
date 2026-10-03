@@ -1,0 +1,21 @@
+{
+  "builder": {
+    "gc": {
+      "enabled": true,
+      "policy": [
+        {
+          "filter": ["type=source.local", "unused-for=48h"],
+          "maxUsedSpace": "512MB"
+        },
+        {
+          "filter": ["unused-for=168h"],
+          "maxUsedSpace": "5GB"
+        },
+        {
+          "all": true,
+          "maxUsedSpace": "5GB"
+        }
+      ]
+    }
+  }
+}

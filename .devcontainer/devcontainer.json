@@ -23,6 +23,10 @@
       "version": "latest"
     }
   },
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/daemon.json,target=/etc/docker/daemon.json,type=bind,readonly"
+  ],
   "name": "stzky infra",
   "postCreateCommand": "./scripts/bootstrap.sh",
+  "postStartCommand": "./scripts/prune-docker-images.sh",
 }
