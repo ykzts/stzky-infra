@@ -13,6 +13,7 @@ Grafana関連サービスのCompose設定です。
 - `node-exporter`
 - `cadvisor`
 - `snmp-exporter`
+- `json-exporter`
 - `database` (PostgreSQL)
 - `redis` (Valkey)
 
@@ -59,8 +60,24 @@ rm -r mibs
 yamlfmt if_traffic.yml
 ```
 
+## Immich の統計情報
+
+`immich_statistics` ジョブは json-exporter 経由で Immich の `GET /api/server/statistics` を 5 分間隔で取得し、Administration → Server Stats と同じ数値をメトリクスにする。
+
+| メトリクス | ラベル | 内容 |
+| --- | --- | --- |
+| `immich_assets` | `type` (`photo` / `video`) | アセット数 |
+| `immich_usage_bytes` | `type` | 使用容量 (バイト) |
+
+合計は `sum without (type) (immich_usage_bytes)` のように求める。取得間隔が Prometheus のルックバック (5 分) と同じなので、パネルでは `last_over_time(immich_assets[10m])` のように直近の値を使うと欠けにくい。
+
+API キーは `.env` の `IMMICH_STATISTICS_API_KEY` に設定する。Compose の secret として json-exporter の `/run/secrets/immich_api_key` に渡され、`x-api-key` ヘッダーとして送られる。キーは Immich の管理者ユーザーで Account Settings → API Keys から作成し、権限は `server.statistics` だけを付与する。
+
+レスポンスにはユーザーごとの内訳 (`usageByUser`) も含まれるが、ユーザー名などの個人情報を Prometheus に長期保存しないよう取得していない。
+
 ## ファイル
 
 - Compose定義: `compose.yaml`
 - 環境変数テンプレート: `.env.example`
 - SNMP モジュール定義: `config/snmp-exporter/generator.yml` (生成物: `config/snmp-exporter/if_traffic.yml`)
+- json-exporter モジュール定義: `config/json-exporter/config.yml`

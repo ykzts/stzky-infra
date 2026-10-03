@@ -10,6 +10,25 @@ scrape_configs:
       - targets: ['grafana:3000']
     job_name: grafana
 
+  - metrics_path: /probe
+    params:
+      module: [immich_statistics]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: json-exporter:7979
+    scrape_interval: 5m
+    static_configs:
+      - targets: ['http://immich-server:2283/api/server/statistics']
+    job_name: immich_statistics
+
+  - static_configs:
+      - targets: ['json-exporter:7979']
+    job_name: json_exporter
+
   - static_configs:
       - targets: ['node-exporter:9100']
     job_name: node
