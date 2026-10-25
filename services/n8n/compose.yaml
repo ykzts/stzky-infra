@@ -4,7 +4,7 @@ services:
     depends_on:
       n8n-db:
         condition: service_healthy
-    image: docker.n8n.io/n8nio/n8n:2.27.4@sha256:cf11c96b0d0089bb24459bf97b445fd7008f41543b673cce4d955f7c0ed8752d
+    image: docker.n8n.io/n8nio/n8n:2.45.3@sha256:bf88c3783fc4b2a90a007bb99b04ad2f6a9627f41499baf72ca67559c51c7f4c
     environment:
       DB_POSTGRESDB_HOST: n8n-db
       DB_POSTGRESDB_DATABASE: ${POSTGRES_DB:-n8n}
