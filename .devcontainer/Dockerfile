@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:2.1.10-trixie@sha256:b60cd6e70901c42c23dc312b8e0cf2c704cad3acf65c55739ff1ef33a30166d2
+FROM mcr.microsoft.com/devcontainers/base:2.2.3-trixie@sha256:6ee2b4097c75d33e9a94d941577a3286e5d629434fba384688b06daeeaaeac99
 
 RUN apt-get update && apt-get install -y apache2-utils && rm -rf /var/lib/apt/lists/*
 
