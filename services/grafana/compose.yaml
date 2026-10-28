@@ -188,7 +188,7 @@ services:
       - --config.file=/etc/snmp_exporter/snmp.yml
       - --config.file=/etc/snmp_exporter/if_traffic.yml
     container_name: snmp_exporter
-    image: prom/snmp-exporter:v0.30.1@sha256:e5fd5e8b43ace6c088fe9bf0b37b7fff0e04380bee352be7ec41b853a4dd5859
+    image: prom/snmp-exporter:v0.31.0@sha256:e5f1aba929145cea2a3bad89c29959efaec0dc26fb87e3761414616a1a392c1c
     restart: always
     volumes:
       - ./config/snmp-exporter/if_traffic.yml:/etc/snmp_exporter/if_traffic.yml:ro
