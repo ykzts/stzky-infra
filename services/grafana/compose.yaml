@@ -15,7 +15,7 @@ services:
       start_period: 30s
       test: ['CMD', 'bash', '-c', 'exec 3<>/dev/tcp/127.0.0.1/12345 && printf "GET /-/ready HTTP/1.0\r\n\r\n" >&3 && head -1 <&3 | grep -q 200']
       timeout: 5s
-    image: grafana/alloy:v1.21.2@sha256:89a5a320168387336b9ac3c850609c3ba7757eadd4ae5f1d819deb35e9854b18
+    image: grafana/alloy:v1.21.3@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4
     networks:
       - default
       - stzky-ingress
