@@ -89,7 +89,7 @@ services:
       start_period: 30s
       test: ['CMD', 'wget', '--spider', '-q', '--tries=1', 'http://127.0.0.1:3000/api/health']
       timeout: 5s
-    image: grafana/grafana:13.3.0@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205
+    image: grafana/grafana:13.3.1@sha256:0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf
     networks:
       - default
       - stzky-ingress
