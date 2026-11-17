@@ -35,7 +35,7 @@ services:
       - redis
     environment:
       !!merge <<: *backend-variables
-    image: baserow/backend:2.4.1@sha256:497347d0ba74083cf9bdff388fd44097dd3c193a2e42abc469448bbece3116a5
+    image: baserow/backend:2.4.3@sha256:52d77853dca3d533d1e5514b37adc763908486e74fa3ae0b35238c72658eb4c1
     networks:
       - local
       - stzky-ingress
@@ -49,7 +49,7 @@ services:
       BASEROW_PUBLIC_URL: https://base.stzky.com
       PRIVATE_BACKEND_URL: http://backend:8000
       PUBLIC_BACKEND_URL: https://base.stzky.com
-    image: baserow/web-frontend:2.4.1@sha256:c2275e6e777fe34ea9637315f363b677a101a78ebc558e6ddac8f7b3ae72689e
+    image: baserow/web-frontend:2.4.3@sha256:6f64f0791f0ab8252323f54d34f5ed880e70bef580825cd10920ae2d38392092
     networks:
       - local
       - stzky-ingress
@@ -65,7 +65,7 @@ services:
       !!merge <<: *backend-variables
     healthcheck:
       test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-worker-healthcheck']
-    image: baserow/backend:2.4.1@sha256:497347d0ba74083cf9bdff388fd44097dd3c193a2e42abc469448bbece3116a5
+    image: baserow/backend:2.4.3@sha256:52d77853dca3d533d1e5514b37adc763908486e74fa3ae0b35238c72658eb4c1
     networks:
       - local
     restart: always
@@ -80,7 +80,7 @@ services:
       !!merge <<: *backend-variables
     healthcheck:
       test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-exportworker-healthcheck']
-    image: baserow/backend:2.4.1@sha256:497347d0ba74083cf9bdff388fd44097dd3c193a2e42abc469448bbece3116a5
+    image: baserow/backend:2.4.3@sha256:52d77853dca3d533d1e5514b37adc763908486e74fa3ae0b35238c72658eb4c1
     networks:
       - local
     restart: always
@@ -95,7 +95,7 @@ services:
       !!merge <<: *backend-variables
     healthcheck:
       test: ['CMD', '/baserow/backend/docker/docker-entrypoint.sh', 'celery-beat-healthcheck']
-    image: baserow/backend:2.4.1@sha256:497347d0ba74083cf9bdff388fd44097dd3c193a2e42abc469448bbece3116a5
+    image: baserow/backend:2.4.3@sha256:52d77853dca3d533d1e5514b37adc763908486e74fa3ae0b35238c72658eb4c1
     networks:
       - local
     restart: always
