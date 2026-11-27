@@ -64,7 +64,7 @@ services:
     command: ['redis-server', '--bind', '0.0.0.0']
     container_name: firecrawl-redis
     cpus: 1
-    image: redis:8.10-alpine@sha256:21090af93f8324db2f0f0f4f38a7c60369d47d917e000c3423d89d2ae2883537
+    image: redis:8.12-alpine@sha256:5af80107c1eeecb484a2269b80a26d12bfa6521787da4663bd9f19f60a163483
     healthcheck:
       interval: 5s
       retries: 5
